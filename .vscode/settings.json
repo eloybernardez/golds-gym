@@ -1,10 +1,15 @@
 {
   "editor.fontFamily": "\"Cascadia Mono\",  Consolas, 'Courier New', monospace",
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
   "editor.formatOnType": false,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
-  "editor.fontSize": 11
+  "editor.fontSize": 10,
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true
 }
