@@ -16,16 +16,30 @@ function Navbar() {
       px='20px'
     >
       <Link to='/'>
-        <img src={Logo} alt='logo' style={{ width: '48px', height: '48px', margin: '0 20px' }} />
+        <img
+          src={Logo}
+          alt='logo'
+          style={{ width: '48px', height: '48px', margin: '0 20px' }}
+        />
       </Link>
-      <Stack sx={{ gap: '40px', fontSize: '24px', alignItems: 'flex-end' }} direction='row'>
+      <Stack
+        sx={{ gap: '40px', fontSize: '24px', alignItems: 'flex-end' }}
+        direction='row'
+      >
         <Link
           to='/'
-          style={{ textDecoration: 'none', color: '#3A1212', borderBottom: '3px solid #ff2625' }}
+          style={{
+            textDecoration: 'none',
+            color: '#3A1212',
+            borderBottom: '3px solid #ff2625',
+          }}
         >
           Home
         </Link>
-        <a href='#exercises' style={{ textDecoration: 'none', color: '#3A1212' }}>
+        <a
+          href='#exercises'
+          style={{ textDecoration: 'none', color: '#3A1212' }}
+        >
           Exercises
         </a>
       </Stack>

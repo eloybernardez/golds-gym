@@ -24,7 +24,7 @@ function BodyPart({ item, chosenBodyPart, setChosenBodyPart }) {
       }}
     >
       <img
-        src={item.muscle?.image}
+        src={item?.image}
         alt={item.name}
         style={{ width: '40px', height: '40px' }}
       />

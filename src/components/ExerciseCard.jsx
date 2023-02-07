@@ -22,24 +22,20 @@ function ExerciseCard({ exercise }) {
         px='8px'
       >
         <Stack direction='row'>
-          {exercise.muscles?.map((muscle) =>
-            muscle ? (
-              <Typography
-                key={muscle.id}
-                sx={{
-                  ml: '10px',
-                  p: '4px 8px',
-                  color: '#fff',
-                  background: '#ffa9a9',
-                  fontSize: '14px',
-                  borderRadius: '20px',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {muscle.name_en}
-              </Typography>
-            ) : null
-          )}
+          <Typography
+            key={exercise.category?.id}
+            sx={{
+              ml: '10px',
+              p: '4px 8px',
+              color: '#fff',
+              background: '#ffa9a9',
+              fontSize: '14px',
+              borderRadius: '20px',
+              textTransform: 'capitalize',
+            }}
+          >
+            {exercise.category?.name}
+          </Typography>
           {exercise.equipment?.map((equip) => (
             <Typography
               key={equip.id}
@@ -53,7 +49,9 @@ function ExerciseCard({ exercise }) {
                 textTransform: 'capitalize',
               }}
             >
-              {equip.name}
+              {equip.name.includes('none')
+              ? 'Bodyweight'
+              : equip.name}
             </Typography>
           ))}
         </Stack>

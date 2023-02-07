@@ -37,18 +37,18 @@ function RightArrow() {
   );
 }
 
-function HorizontalScrollbar({ data, chosenBodyPart, setChosenBodyPart }) {
+function HorizontalScrollbar({ bodyParts, chosenBodyPart, setChosenBodyPart }) {
   return (
     <ScrollMenu
       LeftArrow={LeftArrow}
       RightArrow={RightArrow}
     >
-      {data?.map((item) => (
+      {bodyParts?.map((item) => (
         <BodyPart
           key={item.id}
-          item={item}
           itemId={item.id}
           title={item.id}
+          item={item}
           chosenBodyPart={chosenBodyPart}
           setChosenBodyPart={setChosenBodyPart}
         />
