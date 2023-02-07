@@ -1,7 +1,8 @@
 export const exerciseOptions = {
   method: 'GET',
-  headers: { 'X-Api-Key': process.env.REACT_APP_NINJA_API_KEY },
-  contentType: 'application/json',
+  headers: {
+    Authorization: process.env.REACT_APP_WGER_API_KEY,
+  },
 };
 
 export const fetchData = async (url, options) => {

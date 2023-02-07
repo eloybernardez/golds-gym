@@ -1,18 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Stack, Typography, TextField, Button } from '@mui/material';
+import HorizontalScrollbar from './HorizontalScrollbar';
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 
-function SearchExercises() {
+import Abs from '../assets/icons/abs.png';
+import Arms from '../assets/icons/arms.png';
+import Back from '../assets/icons/back.png';
+import Chest from '../assets/icons/chest.png';
+import Legs from '../assets/icons/legs.png';
+import Calves from '../assets/icons/calves.png';
+import Cardio from '../assets/icons/cardio.png';
+import Shoulder from '../assets/icons/shoulder.png';
+
+function SearchExercises({ setExercises, chosenBodyPart, setChosenBodyPart }) {
+  const muscleImgs = [Abs, Arms, Back, Chest, Legs, Calves, Cardio, Shoulder];
   const [search, setSearch] = useState('');
+  const [bodyParts, setBodyParts] = useState([]);
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      const { results } = await fetchData(
+        'https://wger.de/api/v2/exercisecategory/',
+        exerciseOptions
+      );
+      const muscles = results.map((muscle, index) => ({
+          ...muscle,
+          image: musclesImgs[index],
+      }));
+      setBodyParts(muscles);
+    };
+
+    fetchExercisesData();
+  }, []);
 
   const handleSearch = async () => {
     if (search) {
-      const exercisesData = await fetchData(
-        `https://api.api-ninjas.com/v1/exercises?name=${search}`,
+      const { results } = await fetchData(
+        'https://wger.de/api/v2/exerciseinfo/?limit=500',
         exerciseOptions
       );
+      const searchedExercises = results
+        .filter(
+          ({ name, language, description, muscles }) =>
+            language.id === 2 &&
+            description &&
+            (name.toLowerCase().includes(search) ||
+              muscles[0]?.name_en.toLowerCase().includes(search))
+        )
+        .map((exercise) => ({
+          ...exercise,
+          description: exercise.description
+            .replaceAll('<p>', '')
+            .replaceAll('</p>', '')
+            .replaceAll('<ul>', '')
+            .replaceAll('</ul>', '')
+            .replaceAll('<li>', '')
+            .replaceAll('</li>', ''),
+        }));
 
-      console.log(exercisesData);
+      setSearch('');
+      setExercises(searchedExercises);
     }
   };
 
@@ -72,6 +118,19 @@ function SearchExercises() {
         >
           Search
         </Button>
+      </Box>
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          p: '20px',
+        }}
+      >
+        <HorizontalScrollbar
+          data={bodyParts}
+          chosenBodyPart={chosenBodyPart}
+          setChosenBodyPart={setChosenBodyPart}
+        />
       </Box>
     </Stack>
   );
