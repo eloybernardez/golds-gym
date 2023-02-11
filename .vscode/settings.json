@@ -1,14 +1,14 @@
 {
-  "editor.fontFamily": "'Fira Code', 'Apercu Mono Pro', 'JetBrains Mono', Consolas, 'Courier New', monospace",
+  "editor.fontFamily": "'Fira Code', \"Cascadia Code\", 'Apercu Mono Pro', 'JetBrains Mono', Consolas, 'Courier New', monospace",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": false,
   "editor.formatOnPaste": false,
   "editor.formatOnType": false,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
-  "editor.fontSize": 10,
+  "editor.fontSize": 12,
   "editor.fontLigatures": true,
-  "editor.fontWeight": 450,
+  "editor.fontWeight": 360,
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

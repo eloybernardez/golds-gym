@@ -28,6 +28,8 @@ function SearchExercises({ setExercises, chosenBodyPart, setChosenBodyPart }) {
         image: muscleImgs[index],
       }));
       setBodyParts(muscles);
+      const searchedExercises = await fetchExercises();
+      setExercises(searchedExercises);
     };
 
     fetchExercisesData();
