@@ -39,8 +39,8 @@ function SearchExercises({ setExercises, chosenBodyPart, setChosenBodyPart }) {
     const searchedExercises = await fetchExercises();
     const filteredExercises = searchedExercises.filter(
       ({ name, muscles }) =>
-        (name.toLowerCase().includes(search) ||
-          muscles[0]?.name_en.toLowerCase().includes(search))
+        name.toLowerCase().includes(search) ||
+        muscles[0]?.name_en.toLowerCase().includes(search)
     );
 
     setSearch('');
@@ -112,9 +112,10 @@ function SearchExercises({ setExercises, chosenBodyPart, setChosenBodyPart }) {
         }}
       >
         <HorizontalScrollbar
-          bodyParts={bodyParts}
+          data={bodyParts}
           chosenBodyPart={chosenBodyPart}
           setChosenBodyPart={setChosenBodyPart}
+          isBodyPart
         />
       </Box>
     </Stack>

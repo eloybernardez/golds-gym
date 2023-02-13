@@ -8,6 +8,7 @@ function ExerciseCard({ exercise }) {
     <Link
       className='exercise-card'
       to={`/exercise/${exercise.exercise_base_id}`}
+      style={{marginRight: '15px', marginLeft: '15px'}}
     >
       <img
         src={exercise.images[0]?.image || NotFound}

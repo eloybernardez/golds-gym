@@ -25,8 +25,10 @@ function Exercises({ exercises, setExercises, chosenBodyPart }) {
     const fetchExercisesData = async (muscle) => {
       const fetchedExercises = await fetchExercises();
 
-      const filteredByMuscle = fetchedExercises.filter(({ category }) =>
-      category?.name && category.name.toLowerCase() === muscle);
+      const filteredByMuscle = fetchedExercises.filter(
+        ({ category }) =>
+          category?.name && category.name.toLowerCase() === muscle
+      );
       setExercises(filteredByMuscle);
     };
     fetchExercisesData(chosenMuscle);

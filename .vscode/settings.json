@@ -1,18 +1,20 @@
 {
-  "editor.fontFamily": "'Fira Code', \"Cascadia Code\", 'Apercu Mono Pro', 'JetBrains Mono', Consolas, 'Courier New', monospace",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": false,
+  "editor.fontFamily": "'Fira Code', \"Cascadia Code\", Consolas, 'Courier New', monospace",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
   "editor.formatOnType": false,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
-  "editor.fontSize": 12,
+  "editor.fontSize": 10,
   "editor.fontLigatures": true,
-  "editor.fontWeight": 360,
+  "editor.fontWeight": 400,
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,
-  "prettier.enable": true
+  "prettier.enable": false,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "eslint.format.enable": true
 }
