@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import BodyPart from './BodyPart';
 import RightArrowIcon from '../assets/icons/right-arrow.png';
@@ -7,10 +7,12 @@ import LeftArrowIcon from '../assets/icons/left-arrow.png';
 import ExerciseCard from './ExerciseCard';
 
 function LeftArrow() {
-  const { scrollPrev } = useContext(VisibilityContext);
+  const { scrollPrev, isFirstItemVisible } = useContext(VisibilityContext);
 
   return (
     <Typography
+      sx={{ display: {xs:'none', md:'block'}}}
+      disabled={isFirstItemVisible}
       onClick={() => scrollPrev()}
       className='right-arrow'
     >
@@ -23,10 +25,12 @@ function LeftArrow() {
 }
 
 function RightArrow() {
-  const { scrollNext } = useContext(VisibilityContext);
+  const { scrollNext, isLastItemVisible } = useContext(VisibilityContext);
 
   return (
     <Typography
+    sx={{ display: {xs:'none', md:'block'}}}
+      disabled={isLastItemVisible}
       onClick={() => scrollNext()}
       className='left-arrow'
     >
@@ -52,7 +56,8 @@ function HorizontalScrollbar({ data, chosenBodyPart, setChosenBodyPart, isBodyPa
           item={item}
           chosenBodyPart={chosenBodyPart}
           setChosenBodyPart={setChosenBodyPart}
-        /> : <ExerciseCard key={item.exercise_base_id} exercise={item} />
+        /> : <ExerciseCard key={item.exercise_base_id} itemId={item.exercise_base_id}
+        title={item.name} exercise={item} />
       ))}
     </ScrollMenu>
   );

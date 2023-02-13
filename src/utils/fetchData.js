@@ -32,7 +32,7 @@ const fetchExercises = async () => {
     exerciseOptions
   );
   const searchedExercises = results
-    .filter(({ language, description }) => language.id === 2 && description)
+    .filter(({ language, description,images }) => language.id === 2 && description && images.length>0)
     .map((exercise) => ({
       ...exercise,
       description: exercise.description
