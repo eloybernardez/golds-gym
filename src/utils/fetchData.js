@@ -1,5 +1,3 @@
-import { AssignmentReturnedSharp } from "@mui/icons-material";
-
 const exerciseOptions = {
   method: 'GET',
   headers: {
