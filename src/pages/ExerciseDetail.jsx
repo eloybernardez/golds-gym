@@ -32,6 +32,7 @@ function ExerciseDetail() {
       if (contents)  setExerciseVideos(contents);
 
       const targetMuscleExercisesData = exerciseInfo.filter((exercise) => exercise.category?.name === exerciseDetailData.category?.name);
+      
       const equipmentExercisesData = exerciseInfo.filter((exercise) => exercise.equipment?.id === exerciseDetailData.equipment?.id);
 
       if (targetMuscleExercisesData) setTargetMuscleExercises(targetMuscleExercisesData);

@@ -1,9 +1,12 @@
+import { Category } from "@mui/icons-material";
+
 const exerciseOptions = {
   method: 'GET',
   headers: {
     Authorization: process.env.REACT_APP_WGER_API_KEY,
   },
 };
+
 
 const youtubeOptions = {
   method: 'GET',
@@ -29,8 +32,9 @@ const fetchExercises = async () => {
     'https://wger.de/api/v2/exerciseinfo/?limit=500',
     exerciseOptions
   );
+
   const searchedExercises = results
-    .filter(({ language, description,images }) => language.id === 2 && description && images.length>0)
+    .filter(({ language, description,images, category }) => language.id === 2 && description && (images?.length > 0 || category.name === 'Calves' || category.name === 'Cardio'))
     .map((exercise) => ({
       ...exercise,
       description: exercise.description
@@ -42,7 +46,7 @@ const fetchExercises = async () => {
         .replaceAll('</li>', '')
         .replaceAll('<ol>', '')
         .replaceAll('</ol>', ''),
-    }));
+    }))
 
   return searchedExercises;
 };

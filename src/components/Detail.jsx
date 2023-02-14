@@ -23,7 +23,7 @@ function Detail({ exerciseDetail }) {
       sx={{ flexDirection: { lg: 'row' }, p: '20px', alignItems: 'center' }}
     >
       <img
-        src={images ? images[0].image : NotFound}
+        src={images?.length > 0 ? images[0].image : NotFound}
         alt={name}
         loading='lazy'
         style={{ width: '250px', height: '250px', margin: '12px auto 0 auto' }}
