@@ -11,6 +11,7 @@ import Legs from '../assets/icons/legs.png';
 import Calves from '../assets/icons/calves.png';
 import Cardio from '../assets/icons/cardio.png';
 import Shoulder from '../assets/icons/shoulder.png';
+import SearchBar from './SearchBar';
 
 function SearchExercises({ setExercises, chosenBodyPart, setChosenBodyPart }) {
   const muscleImgs = [Abs, Arms, Back, Calves, Cardio, Chest, Legs, Shoulder];
@@ -65,46 +66,7 @@ function SearchExercises({ setExercises, chosenBodyPart, setChosenBodyPart }) {
         <br />
         Should Know
       </Typography>
-      <Box
-        position='relative'
-        mb='72px'
-      >
-        <TextField
-          sx={{
-            input: {
-              fontWeight: 700,
-              border: 'none',
-              borderRadius: '4px',
-            },
-            width: { lg: '800px', xs: '350px' },
-            backgroundColor: '#fff',
-            borderRadius: '40px',
-          }}
-          height='76px'
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value.toLowerCase());
-          }}
-          placeholder='Search Exercises'
-          type='text'
-        />
-        <Button
-          className='search-btn'
-          sx={{
-            bgcolor: '#ff2625',
-            color: '#fff',
-            textTransform: 'none',
-            width: { lg: '175px', xs: '80px' },
-            fontSize: { lg: '20px', xs: '14px' },
-            height: '56px',
-            position: 'absolute',
-            right: '0',
-          }}
-          onClick={handleSearch}
-        >
-          Search
-        </Button>
-      </Box>
+      <SearchBar search={search} setSearch={setSearch} handleSearch={handleSearch} />
       <Box
         sx={{
           position: 'relative',

@@ -6,15 +6,15 @@
   "editor.formatOnType": false,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
-  "editor.fontSize": 10,
+  "editor.fontSize": 16,
   "editor.fontLigatures": true,
   "editor.fontWeight": 400,
   "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,
-  "prettier.enable": false,
+  "prettier.enable": true,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "eslint.format.enable": true
 }

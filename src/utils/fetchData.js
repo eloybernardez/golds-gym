@@ -1,10 +1,16 @@
-import { Category } from "@mui/icons-material";
-
 const exerciseOptions = {
   method: 'GET',
   headers: {
     Authorization: process.env.REACT_APP_WGER_API_KEY,
   },
+};
+
+const nutritionOptions = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+		'X-RapidAPI-Host': 'nutrition-by-api-ninjas.p.rapidapi.com'
+	}
 };
 
 
@@ -51,4 +57,12 @@ const fetchExercises = async () => {
   return searchedExercises;
 };
 
-export { fetchData, exerciseOptions, fetchExercises, youtubeOptions };
+const getFoodMacros = async (food) => {
+  let foodMacros= [];
+  if (food) foodMacros = await fetchData(`https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition?query=${food}`, nutritionOptions);
+  console.log('search text',food);
+
+  return foodMacros;
+}
+
+export { fetchData, exerciseOptions, fetchExercises, youtubeOptions, getFoodMacros };

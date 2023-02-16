@@ -5,6 +5,7 @@ import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import FoodMacros from './pages/FoodMacros';
 import './App.css';
 
 function App() {
@@ -24,6 +25,10 @@ function App() {
           path='/exercise/:id'
           element={<ExerciseDetail />}
         />
+        <Route
+          path='/macros'
+          element={<FoodMacros />}
+          />
       </Routes>
       <Footer />
     </Box>
