@@ -6,11 +6,11 @@
   "editor.formatOnType": false,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
-  "editor.fontSize": 16,
+  "editor.fontSize": 20,
   "editor.fontLigatures": true,
   "editor.fontWeight": 400,
   "[javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {Box, Button, TextField} from '@mui/material'
 
-function SearchBar({search, setSearch, handleSearch }) {
+function SearchBar({search, setSearch, handleSearch, isAFoodSearch=false }) {
   return (
     <Box
         position='relative'
@@ -23,7 +23,7 @@ function SearchBar({search, setSearch, handleSearch }) {
           onChange={(e) => {
             setSearch(e.target.value.toLowerCase());
           }}
-          placeholder='Search Exercises'
+          placeholder={isAFoodSearch ? 'Insert Food (one by one) ' : 'Search Exercises'}
           type='text'
         />
         <Button
@@ -46,4 +46,4 @@ function SearchBar({search, setSearch, handleSearch }) {
   )
 }
 
-export default SearchBar
+export default memo(SearchBar)

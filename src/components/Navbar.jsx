@@ -42,6 +42,15 @@ function Navbar() {
         >
           Exercises
         </a>
+        <Link
+          to='/macros'
+          style={{
+            textDecoration: 'none',
+            color: '#3A1212',
+          }}
+        >
+          Macros
+        </Link>
       </Stack>
     </Stack>
   );

@@ -19,6 +19,7 @@ module.exports = {
     'react/prop-types': 0,
     'no-unused-vars': 0,
     'operator-linebreak': 0,
+    'no-return-assing':0,
     indent: 0,
     'no-confusing-arrow': 0,
   },
