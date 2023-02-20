@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Stack } from '@mui/material';
+import { TextField, Typography, Stack, Button } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
-function FoodCard({ item }) {
+function FoodCard({ item, setSavedFood, savedFood }) {
   const [servingSize, setServingSize] = useState(100);
+
+  const handleSavedFood = () => {
+    let updatedItems = savedFood;
+    // update food macros
+    const updatedFood = item.map((macro, index) =>
+      index !== 0
+        ? [macro[0], ((macro[1] * servingSize) / 100).toPrecision(4)]
+        : [macro[0], macro[1]]
+    );
+    // Find repeated item, if exists
+    const repeatedIndex = savedFood.findIndex(
+      (food) => food[0]?.[1] === updatedFood[0]?.[1]
+    );
+    // If it does exists, filter it from the array
+    if (repeatedIndex !== -1) {
+      updatedItems = savedFood.filter((_, index) => index !== repeatedIndex);
+    }
+
+    // Update savedFood
+    setSavedFood([...updatedItems, updatedFood]);
+  };
   return (
     <Card sx={{ width: '300px' }}>
       <CardContent sx={{ textTransform: 'capitalize' }}>
@@ -15,7 +36,7 @@ function FoodCard({ item }) {
           {item[0]?.[1]}
         </Typography>
         {item.map((food, index) =>
-          index > 2 ? (
+          index !== 0 ? (
             <Stack
               direction='row'
               sx={{
@@ -32,7 +53,9 @@ function FoodCard({ item }) {
                 {food[0]}
               </Typography>
               <Typography sx={{ textTransform: 'capitalize' }}>
-                {servingSize !== 100 ? (food[1] * servingSize) / 100 : food[1]}
+                {servingSize !== 100
+                  ? ((food[1] * servingSize) / 100).toPrecision(4)
+                  : food[1]}
               </Typography>
             </Stack>
           ) : null
@@ -50,6 +73,17 @@ function FoodCard({ item }) {
               )
             }
           />
+          <Button
+            onClick={handleSavedFood}
+            variant='contained'
+            sx={{
+              mt: '20px',
+              backgroundColor: '#ff2625',
+              '&:hover': { backgroundColor: '#ff1010' },
+            }}
+          >
+            Add Food
+          </Button>
         </Stack>
       </CardContent>
     </Card>

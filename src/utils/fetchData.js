@@ -6,30 +6,29 @@ const exerciseOptions = {
 };
 
 const nutritionOptions = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
-		'X-RapidAPI-Host': 'nutrition-by-api-ninjas.p.rapidapi.com'
-	}
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+    'X-RapidAPI-Host': 'nutrition-by-api-ninjas.p.rapidapi.com',
+  },
 };
-
 
 const youtubeOptions = {
   method: 'GET',
   url: 'https://youtube-search-and-download.p.rapidapi.com/search',
   headers: {
     'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
-    'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com'
-  }
+    'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
+  },
 };
 
 const fetchData = async (url, options) => {
   try {
-  const response = await fetch(url, options);
-  const data = await response.json();
-  return data;
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
   } catch (error) {
-   return console.error(error.message);
+    return console.error(error.message);
   }
 };
 
@@ -40,7 +39,14 @@ const fetchExercises = async () => {
   );
 
   const searchedExercises = results
-    .filter(({ language, description,images, category }) => language.id === 2 && description && (images?.length > 0 || category.name === 'Calves' || category.name === 'Cardio'))
+    .filter(
+      ({ language, description, images, category }) =>
+        language.id === 2 &&
+        description &&
+        (images?.length > 0 ||
+          category.name === 'Calves' ||
+          category.name === 'Cardio')
+    )
     .map((exercise) => ({
       ...exercise,
       description: exercise.description
@@ -52,17 +58,26 @@ const fetchExercises = async () => {
         .replaceAll('</li>', '')
         .replaceAll('<ol>', '')
         .replaceAll('</ol>', ''),
-    }))
+    }));
 
   return searchedExercises;
 };
 
 const getFoodMacros = async (food) => {
-  let foodMacros= [];
-  if (food) foodMacros = await fetchData(`https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition?query=${food}`, nutritionOptions);
-  console.log('search text',food);
+  let foodMacros = [];
+  if (food)
+    foodMacros = await fetchData(
+      `https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition?query=${food}`,
+      nutritionOptions
+    );
 
   return foodMacros;
-}
+};
 
-export { fetchData, exerciseOptions, fetchExercises, youtubeOptions, getFoodMacros };
+export {
+  fetchData,
+  exerciseOptions,
+  fetchExercises,
+  youtubeOptions,
+  getFoodMacros,
+};
