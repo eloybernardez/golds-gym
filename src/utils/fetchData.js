@@ -13,6 +13,15 @@ const nutritionOptions = {
   },
 };
 
+const fitnessOptions = {
+  method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+		'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
+	}
+};
+
+
 const youtubeOptions = {
   method: 'GET',
   url: 'https://youtube-search-and-download.p.rapidapi.com/search',
@@ -28,7 +37,7 @@ const fetchData = async (url, options) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    return console.error(error.message);
+    throw new Error(error.message)
   }
 };
 
@@ -74,10 +83,80 @@ const getFoodMacros = async (food) => {
   return foodMacros;
 };
 
+const getNeededCalories = async (params) => {
+  const { SelectGender: gender, ageInput: age, heightInput: height, weightInput: weight, SelectActivity: activityLevel, SelectGoal: goal } = params;
+
+  let calories = [];
+
+  try {
+    if (params) {
+      calories = await fetchData(
+        `https://fitness-calculator.p.rapidapi.com/dailycalorie?age=${age}&gender=${gender}&height=${height}&weight=${weight}&activitylevel=level_${activityLevel}`,
+        fitnessOptions
+      );
+    }
+
+    if (!calories) return [];
+    const bmrCalories = calories?.data?.BMR;
+    const goalResults = calories?.data?.goals[goal];
+
+    return [bmrCalories, goalResults]
+  } catch (error) {
+    throw new Error(error.message)
+  }
+};
+
+const getMacros = async (params) => {
+  const { SelectGender: gender, ageInput: age, heightInput: height, weightInput: weight, SelectActivity: activityLevel, SelectGoal: goal, SelectDiet: diet } = params;
+
+  let adaptedGoal;
+  // Fix bad naming between different endpoints of the API
+  switch (goal) {
+    case 'Mild weight loss':
+      adaptedGoal = 'mildlose';
+      break;
+    case 'Weight loss':
+      adaptedGoal = 'weightlose';
+      break;
+    case 'Extreme weight loss':
+      adaptedGoal = 'extremelose';
+      break;
+    case 'Mild weight gain':
+      adaptedGoal = 'mildgain';
+      break;
+    case 'Weight gain':
+      adaptedGoal = 'weightgain';
+      break;
+    case 'Extreme weight gain':
+      adaptedGoal = 'extremegain';
+      break;
+    default:
+      adaptedGoal = 'balanced'
+  }
+
+  try {
+  const macros = await fetchData(`https://fitness-calculator.p.rapidapi.com/macrocalculator?age=${age}&gender=${gender}&height=${height}&weight=${weight}&activitylevel=${activityLevel}&goal=${adaptedGoal}`, fitnessOptions);
+
+  if (!macros) return {};
+
+  // match different macro name from different API use
+  const macrosArr=Object.entries(macros.data?.[diet]);
+  macrosArr[2][0] = 'carbohydrates';
+  const finalMacros = Object.fromEntries(macrosArr);
+
+  return finalMacros;
+  
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
 export {
   fetchData,
   exerciseOptions,
   fetchExercises,
   youtubeOptions,
   getFoodMacros,
+  getNeededCalories,
+  getMacros,
 };

@@ -11,7 +11,7 @@ function FoodCard({ item, setSavedFood, savedFood }) {
     // update food macros
     const updatedFood = item.map((macro, index) =>
       index !== 0
-        ? [macro[0], ((macro[1] * servingSize) / 100).toPrecision(4)]
+        ? [macro[0], Math.floor((macro[1] * servingSize) / 100)]
         : [macro[0], macro[1]]
     );
     // Find repeated item, if exists
@@ -43,6 +43,7 @@ function FoodCard({ item, setSavedFood, savedFood }) {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}
+              key={`food-${food[0]}`}
             >
               <Typography
                 sx={{
@@ -54,7 +55,7 @@ function FoodCard({ item, setSavedFood, savedFood }) {
               </Typography>
               <Typography sx={{ textTransform: 'capitalize' }}>
                 {servingSize !== 100
-                  ? ((food[1] * servingSize) / 100).toPrecision(4)
+                  ? Math.floor((food[1] * servingSize) / 100)
                   : food[1]}
               </Typography>
             </Stack>

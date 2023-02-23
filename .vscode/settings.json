@@ -16,5 +16,8 @@
   "prettier.jsxSingleQuote": true,
   "prettier.enable": true,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
 }
