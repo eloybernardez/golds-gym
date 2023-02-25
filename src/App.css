@@ -13,6 +13,11 @@ body {
   width: 0px;
 }
 
+
+.link--active{
+  border-bottom: 3px solid #ff2625;
+}
+
 .right-arrow,
 .left-arrow {
   cursor: pointer;

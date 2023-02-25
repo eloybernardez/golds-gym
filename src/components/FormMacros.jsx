@@ -41,10 +41,11 @@ function FormMacros({ formData, setFormData, defaultValues }) {
       sx={{
         flexDirection: { lg: 'row', xs: 'column' },
         backgroundColor: '#fffff6',
-        boxShadow: '-1px 0px 9px 1px rgba(0,0,0,0.49)',
-        borderRadius: '10px',
+        boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.7)',
+        borderRadius: '6px',
         p: '16px',
-        mx: { xs: 'auto' }
+        width: '750px',
+        mx: { lg: '0', xs: 'auto' }
       }}
     >
       <Typography
