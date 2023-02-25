@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Stack, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
+import { Stack, BottomNavigation, BottomNavigationAction, Paper, Container } from '@mui/material';
 import { Home, SportsGymnastics } from '@mui/icons-material';
 import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 
-import Logo from '../assets/images/Logo-1.png';
+import Logo from '../assets/images/Logo.png';
 
 
 function Navbar() {
@@ -21,13 +21,15 @@ function Navbar() {
       }}
       px='20px'
     >
-      <Link to='/'>
-        <img
-          src={Logo}
-          alt='logo'
-          style={{ width: '48px', height: '48px', margin: '0 20px', display: { lg: 'block', xs: 'none' } }}
-        />
-      </Link>
+      <Container sx={{ display: { lg: 'flex', xs: 'none' }, width: '48px', height: '48px', margin: '0 20px', alignItems: 'center' }}>
+        <Link to='/'>
+          <img
+            src={Logo}
+            alt='logo'
+            style={{ height: '48px' }}
+          />
+        </Link>
+      </Container>
 
       <Stack
         sx={{ gap: '40px', fontSize: '24px', alignItems: 'flex-end', display: { lg: 'flex', xs: 'none' } }}

@@ -44,7 +44,7 @@ function FormMacros({ formData, setFormData, defaultValues }) {
         boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.7)',
         borderRadius: '6px',
         p: '16px',
-        width: '750px',
+        width: { lg: '700px', xs: '400px' },
         mx: { lg: '0', xs: 'auto' }
       }}
     >
@@ -66,9 +66,9 @@ function FormMacros({ formData, setFormData, defaultValues }) {
         Complete the form
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={2} >
         {textInputs.map((input) =>
-          <Grid item xs={12} lg={6} key={input.name}>
+          <Grid item xs={12} lg={6} key={input.name} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Controller
               name={`${input.name}Input`}
               control={control}
@@ -78,6 +78,7 @@ function FormMacros({ formData, setFormData, defaultValues }) {
                 fieldState: { invalid, error, isValid },
               }) => (
                 <TextField
+                  sx={{ width: '300px' }}
                   value={value}
                   onBlur={onBlur}
                   onChange={(e) => onChange(Number(e.target.value))}
@@ -96,13 +97,13 @@ function FormMacros({ formData, setFormData, defaultValues }) {
         )}
 
         {selectInputs.map((select) =>
-          <Grid item xs={12} lg={6} key={select.name}>
+          <Grid item xs={12} lg={6} key={select.name} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Controller
               name={`Select${select.name.slice(0, 1).toUpperCase()}${select.name.slice(1)}`}
               control={control}
               defaultValue={select.defaultValue}
               render={({ field: { onChange, value, onBlur } }) => (
-                <FormControl>
+                <FormControl sx={{ width: '300px' }}>
                   <InputLabel id={`${select.gender}-select`}>{select.label.slice(0, 1).toUpperCase()}{select.label.slice(1)}</InputLabel>
                   <Select
                     onChange={onChange}

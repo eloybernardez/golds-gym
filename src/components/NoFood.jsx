@@ -25,10 +25,10 @@ function NoFood() {
       >
         <Typography
           variant='h5'
-          sx={{ color: '#555', opacity: '0.5' }}
+          sx={{ color: '#555', opacity: '0.5', textAlign: 'center' }}
         >
-          You have not added food! Eat something
-          
+          {`You haven't eaten anything! Eat something`}
+
         </Typography>
       </Stack>
     </Box>

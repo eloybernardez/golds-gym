@@ -49,7 +49,7 @@ function FoodMacros() {
         </Typography>
 
         <Stack spacing={2} direction={{ lg: 'row', xs: 'column' }} justifyContent='center' alignItems='center' mb='35px'  >
-          <Container sx={{ display: { lg: 'block', xs: 'none' } }}>
+          <Container sx={{ display: { lg: 'block', xs: 'none' }, width: '600px' }}>
             <img src={LoadInfo} alt='by Vlada Karpovich' style={{ borderRadius: '12px', width: '500px', height: '400px', clipPath: 'polygon(0 0, 100% 0, 100% 88%, 0 94%)' }} />
           </Container>
           <FormMacros
