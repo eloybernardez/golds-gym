@@ -23,7 +23,7 @@ function ConfirmSnackbar({ open, setOpen }) {
         severity='success'
         sx={{ width: '100%' }}
       >
-        Data is saved!
+        Data saved!
       </Alert>
     </Snackbar>
 

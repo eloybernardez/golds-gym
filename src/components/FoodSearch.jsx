@@ -10,9 +10,13 @@ function FoodSearch({ foodItems, setFoodItems }) {
   const [foodSearch, setFoodSearch] = useState('');
   const [error, setError] = useState(false);
 
+  
+
   const handleFood = async () => {
     const fetchedFood = await getFoodMacros(foodSearch);
-    if (!fetchedFood.length > 0) {
+    const isRepeated = foodItems.find((food) => fetchedFood[0]?.name === food[0]?.[1] )
+
+    if (!fetchedFood.length > 0 || isRepeated) {
       setError(true);
       return;
     }
@@ -52,18 +56,20 @@ function FoodSearch({ foodItems, setFoodItems }) {
         Insert consumed food
       </Typography>
 
+      {error ? (
+        <Alert severity='error' sx={{mb:'20px'}}>
+          <AlertTitle>Error</AlertTitle>
+          Food not found or already added
+        </Alert>
+      ) : null}
+
       <SearchBar
         search={foodSearch}
         setSearch={setFoodSearch}
         handleSearch={handleFood}
         isAFoodSearch
       />
-      {error ? (
-        <Alert severity='error'>
-          <AlertTitle>Error</AlertTitle>
-          May be a food in Jupiter but not in Earth!
-        </Alert>
-      ) : null}
+      
     </>
   );
 }

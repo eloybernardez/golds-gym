@@ -1,13 +1,24 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, Container } from '@mui/material';
 import FoodSearch from '../components/FoodSearch';
 import FormMacros from '../components/FormMacros';
 import FoodList from '../components/FoodList';
+import LoadInfo from '../assets/images/macro-insert.jpg'
+
+const defaultValues = {
+  SelectGender: 'female',
+  SelectActivity: '1',
+  SelectGoal: 'maintain',
+  SelectDiet: 'balanced',
+  ageInput: 25,
+  heightInput: 160,
+  weightInput: 70,
+};
 
 function FoodMacros() {
   const [foodItems, setFoodItems] = useState([]);
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(defaultValues);
 
   return (
     <Box
@@ -15,9 +26,10 @@ function FoodMacros() {
       alignItems='center'
       sx={{
         mt: '35px',
-        mx:'auto',
-        width: { lg: '1300px', xs: '100%' },
+        mx: 'auto',
+        width: { lg: '1300px', xs: '400px' },
       }}
+
     >
       <Stack
         justifyContent='center'
@@ -36,10 +48,17 @@ function FoodMacros() {
           Because we all know that exercising is not enough...
         </Typography>
 
-        <FormMacros
-          formData={formData}
-          setFormData={setFormData}
-        />
+        <Stack spacing={2} direction={{ lg: 'row', xs: 'column' }} justifyContent='center' alignItems='center' mb='35px'  >
+          <Container sx={{ display: { lg: 'block', xs: 'none' } }}>
+            <img src={LoadInfo} alt='by Vlada Karpovich' style={{ borderRadius: '12px', width: '500px', height: '400px', clipPath: 'polygon(0 0, 100% 0, 100% 88%, 0 94%)' }} />
+          </Container>
+          <FormMacros
+            formData={formData}
+            setFormData={setFormData}
+            defaultValues={defaultValues}
+          />
+        </Stack>
+
         <FoodSearch
           foodItems={foodItems}
           setFoodItems={setFoodItems}
@@ -49,7 +68,7 @@ function FoodMacros() {
           formData={formData}
         />
       </Stack>
-    </Box>
+    </Box >
   );
 }
 

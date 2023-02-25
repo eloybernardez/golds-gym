@@ -20,14 +20,15 @@ function NoFood() {
       />
       <Stack
         direction='row'
+        alignItems='center'
         sx={{ mt: '20px' }}
       >
         <Typography
           variant='h5'
           sx={{ color: '#555', opacity: '0.5' }}
         >
-          You have not added food! Eat something{' '}
-          <LunchDiningIcon sx={{ fontSize: '25px', color: '#ff3330' }} />
+          You have not added food! Eat something
+          
         </Typography>
       </Stack>
     </Box>

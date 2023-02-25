@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Stack, Button } from '@mui/material';
+import { TextField, Typography, Stack, Button, Divider } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
@@ -37,28 +37,33 @@ function FoodCard({ item, setSavedFood, savedFood }) {
         </Typography>
         {item.map((food, index) =>
           index !== 0 ? (
-            <Stack
-              direction='row'
-              sx={{
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-              key={`food-${food[0]}`}
-            >
-              <Typography
+            <div key={`food-${food[0]}`}>
+              <Stack
+                direction='row'
                 sx={{
-                  textTransform: 'capitalize',
-                  fontWeight: 'bold',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
+
               >
-                {food[0]}
-              </Typography>
-              <Typography sx={{ textTransform: 'capitalize' }}>
-                {servingSize !== 100
-                  ? Math.floor((food[1] * servingSize) / 100)
-                  : food[1]}
-              </Typography>
-            </Stack>
+                <Typography
+                  sx={{
+                    textTransform: 'capitalize',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {food[0]}
+                </Typography>
+
+                <Typography sx={{ textTransform: 'capitalize' }}>
+                  {servingSize !== 100
+                    ? Math.floor((food[1] * servingSize) / 100)
+                    : food[1]}
+                </Typography>
+
+              </Stack>
+              <Divider sx={{ mb: '5px', mt: '5px' }} />
+            </div>
           ) : null
         )}
         <Stack sx={{ mt: '50px' }}>

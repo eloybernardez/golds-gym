@@ -15,10 +15,10 @@ const nutritionOptions = {
 
 const fitnessOptions = {
   method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
-		'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
-	}
+  headers: {
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+    'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
+  }
 };
 
 
@@ -42,45 +42,53 @@ const fetchData = async (url, options) => {
 };
 
 const fetchExercises = async () => {
-  const { results } = await fetchData(
-    'https://wger.de/api/v2/exerciseinfo/?limit=500',
-    exerciseOptions
-  );
+  try {
+    const { results } = await fetchData(
+      'https://wger.de/api/v2/exerciseinfo/?limit=500',
+      exerciseOptions
+    );
 
-  const searchedExercises = results
-    .filter(
-      ({ language, description, images, category }) =>
-        language.id === 2 &&
-        description &&
-        (images?.length > 0 ||
-          category.name === 'Calves' ||
-          category.name === 'Cardio')
-    )
-    .map((exercise) => ({
-      ...exercise,
-      description: exercise.description
-        .replaceAll('<p>', '')
-        .replaceAll('</p>', '')
-        .replaceAll('<ul>', '')
-        .replaceAll('</ul>', '')
-        .replaceAll('<li>', '')
-        .replaceAll('</li>', '')
-        .replaceAll('<ol>', '')
-        .replaceAll('</ol>', ''),
-    }));
+    const searchedExercises = results
+      .filter(
+        ({ language, description, images, category }) =>
+          language.id === 2 &&
+          description &&
+          (images?.length > 0 ||
+            category.name === 'Calves' ||
+            category.name === 'Cardio')
+      )
+      .map((exercise) => ({
+        ...exercise,
+        description: exercise.description
+          .replaceAll('<p>', '')
+          .replaceAll('</p>', '')
+          .replaceAll('<ul>', '')
+          .replaceAll('</ul>', '')
+          .replaceAll('<li>', '')
+          .replaceAll('</li>', '')
+          .replaceAll('<ol>', '')
+          .replaceAll('</ol>', ''),
+      }));
 
-  return searchedExercises;
+    return searchedExercises;
+  } catch (error) {
+    throw new Error(error.message)
+  }
 };
 
 const getFoodMacros = async (food) => {
   let foodMacros = [];
-  if (food)
-    foodMacros = await fetchData(
-      `https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition?query=${food}`,
-      nutritionOptions
-    );
+  try {
+    if (food)
+      foodMacros = await fetchData(
+        `https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition?query=${food}`,
+        nutritionOptions
+      );
 
-  return foodMacros;
+    return foodMacros;
+  } catch (error) {
+    throw new Error(error.message)
+  }
 };
 
 const getNeededCalories = async (params) => {
@@ -98,7 +106,7 @@ const getNeededCalories = async (params) => {
 
     if (!calories) return [];
     const bmrCalories = calories?.data?.BMR;
-    const goalResults = calories?.data?.goals[goal];
+    const goalResults = goal === 'maintain' ? calories?.data?.goals[`${goal} weight`] : calories?.data?.goals[goal]?.calory;
 
     return [bmrCalories, goalResults]
   } catch (error) {
@@ -131,21 +139,22 @@ const getMacros = async (params) => {
       adaptedGoal = 'extremegain';
       break;
     default:
-      adaptedGoal = 'balanced'
+      adaptedGoal = 'maintain'
   }
 
   try {
-  const macros = await fetchData(`https://fitness-calculator.p.rapidapi.com/macrocalculator?age=${age}&gender=${gender}&height=${height}&weight=${weight}&activitylevel=${activityLevel}&goal=${adaptedGoal}`, fitnessOptions);
+    const fetchedMacros = await fetchData(`https://fitness-calculator.p.rapidapi.com/macrocalculator?age=${age}&gender=${gender}&height=${height}&weight=${weight}&activitylevel=${activityLevel}&goal=${adaptedGoal}`, fitnessOptions);
 
-  if (!macros) return {};
+    if (!fetchedMacros) return {};
+    
 
-  // match different macro name from different API use
-  const macrosArr=Object.entries(macros.data?.[diet]);
-  macrosArr[2][0] = 'carbohydrates';
-  const finalMacros = Object.fromEntries(macrosArr);
+    // match different macro name for comming from a different APIs
+    const macrosArr = Object.entries(fetchedMacros.data?.[diet]);
+    macrosArr[2][0] = 'carbohydrates';
+    const finalMacros = Object.fromEntries(macrosArr);
 
-  return finalMacros;
-  
+    return finalMacros;
+
   } catch (error) {
     throw new Error(error.message)
   }
