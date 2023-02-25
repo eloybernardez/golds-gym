@@ -14,6 +14,7 @@ function FoodList({ foodItems, formData }) {
         direction='row'
         sx={{ flexWrap: 'wrap' }}
         justifyContent='space-evenly'
+        alignItems='center'
       >
         {foodItems.length > 0 ? (
           foodItems.map((item) => (

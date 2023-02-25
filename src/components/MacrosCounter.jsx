@@ -45,10 +45,12 @@ function MacrosCounter({ savedFood, formData }) {
     <Stack
       gap={3}
       sx={{ mt: '30px' }}
+      alignItems='center'
 
     >
       <Typography
-        variant='h4'
+        variant='h5'
+        px={1}
         sx={{
           display: 'flex',
           justifyContent: 'center',

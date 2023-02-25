@@ -10,11 +10,11 @@ function FoodSearch({ foodItems, setFoodItems }) {
   const [foodSearch, setFoodSearch] = useState('');
   const [error, setError] = useState(false);
 
-  
+
 
   const handleFood = async () => {
     const fetchedFood = await getFoodMacros(foodSearch);
-    const isRepeated = foodItems.find((food) => fetchedFood[0]?.name === food[0]?.[1] )
+    const isRepeated = foodItems.find((food) => fetchedFood[0]?.name === food[0]?.[1])
 
     if (!fetchedFood.length > 0 || isRepeated) {
       setError(true);
@@ -40,36 +40,39 @@ function FoodSearch({ foodItems, setFoodItems }) {
   return (
     <>
       <Typography
-        variant='h4'
-        sx={{
-          mb: '20px',
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-        }}
+      variant='h5'
+      px={1}
+      sx={{
+        mb: '20px',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+      }}
       >
-        <MdFilter2
-          color='#ff2625'
-          size='30px'
-          style={{ marginRight: '12px' }}
-        />{' '}
-        Insert consumed food
-      </Typography>
+      <MdFilter2
+        color='#ff2625'
+        size='30px'
+        style={{ marginRight: '12px' }}
+      />{' '}
+      Insert consumed food
+    </Typography>
 
-      {error ? (
-        <Alert severity='error' sx={{mb:'20px'}}>
-          <AlertTitle>Error</AlertTitle>
-          Food not found or already added
-        </Alert>
-      ) : null}
+      {
+    error ? (
+      <Alert severity='error' sx={{ mb: '20px' }}>
+        <AlertTitle>Error</AlertTitle>
+        Food not found or already added
+      </Alert>
+    ) : null
+  }
 
-      <SearchBar
-        search={foodSearch}
-        setSearch={setFoodSearch}
-        handleSearch={handleFood}
-        isAFoodSearch
-      />
-      
+  <SearchBar
+    search={foodSearch}
+    setSearch={setFoodSearch}
+    handleSearch={handleFood}
+    isAFoodSearch
+  />
+
     </>
   );
 }

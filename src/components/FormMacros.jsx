@@ -41,7 +41,7 @@ function FormMacros({ formData, setFormData, defaultValues }) {
       mx='auto'
       sx={{
         flexDirection: { lg: 'row', xs: 'column' },
-        backgroundColor: '#fffff6',
+        backgroundColor: '#ffffff',
         boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.7)',
         borderRadius: '6px',
         p: '16px',
@@ -50,7 +50,7 @@ function FormMacros({ formData, setFormData, defaultValues }) {
       }}
     >
       <Typography
-        variant='h4'
+        variant='h5'
         sx={{
           mb: '30px',
           display: 'flex',
