@@ -27,7 +27,6 @@ function FoodMacros() {
       sx={{
         mt: '35px',
         mx: 'auto',
-        width: { lg: '1300px', xs: '400px' },
       }}
 
     >
@@ -37,13 +36,13 @@ function FoodMacros() {
       >
         <Typography
           variant='h2'
-          sx={{ color: '#ff2625', mb: '10px' }}
+          sx={{ color: '#ff2625', mb: '10px', textAlign: 'center' }}
         >
           Food Macros
         </Typography>
         <Typography
           variant='h6'
-          sx={{ mb: '30px', px: { xs: '30px' } }}
+          sx={{ mb: '30px', px: { xs: '30px' }, textAlign: 'center' }}
         >
           Because we all know that exercising is not enough...
         </Typography>
