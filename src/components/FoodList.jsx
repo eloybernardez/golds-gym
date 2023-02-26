@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Container } from '@mui/material';
 import FoodCard from './FoodCard';
 import NoFood from './NoFood';
 import MacrosCounter from './MacrosCounter';
+import Macros from '../assets/images/macros-2.jpg';
 
 function FoodList({ foodItems, formData }) {
   const [savedFood, setSavedFood] = useState([]);
@@ -16,6 +17,8 @@ function FoodList({ foodItems, formData }) {
         justifyContent='space-evenly'
         alignItems='center'
       >
+
+
         {foodItems.length > 0 ? (
           foodItems.map((item) => (
             <Stack
@@ -35,7 +38,16 @@ function FoodList({ foodItems, formData }) {
           <NoFood />
         )}
       </Stack>
-      {savedFood.length > 0 ? <MacrosCounter savedFood={savedFood} formData={formData} /> : null}
+
+      {savedFood.length > 0 ?
+        <Stack spacing={2} direction={{ lg: 'row', xs: 'column' }} justifyContent='center' alignItems='center' mt='35px'  >
+          <MacrosCounter savedFood={savedFood} formData={formData} />
+
+          <Container sx={{ display: { lg: 'flex', xs: 'none' }, width: '600px', justifyContent: 'center' }}>
+            <img src={Macros} alt='by Eiliv Aceron at Unsplash' style={{ borderRadius: '12px', width: '300px', height: '400px', clipPath: 'polygon(0 8%, 100% 3%, 100% 100%, 0 100%)' }} />
+          </Container>
+
+        </Stack> : null}
     </Box>
   );
 }
