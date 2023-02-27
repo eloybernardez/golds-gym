@@ -15,8 +15,17 @@ import ConfirmSnackbar from './ConfirmSnackbar';
 import { selectInputs, textInputs } from '../utils/formInputs'
 
 
+const defaultValues = {
+  SelectGender: 'female',
+  SelectActivity: '1',
+  SelectGoal: 'maintain',
+  SelectDiet: 'balanced',
+  ageInput: 25,
+  heightInput: 160,
+  weightInput: 70,
+};
 
-function FormMacros({ formData, setFormData, defaultValues }) {
+function FormMacros({ formData, setFormData }) {
   const [open, setOpen] = useState(false);
 
 
@@ -52,7 +61,6 @@ function FormMacros({ formData, setFormData, defaultValues }) {
       <Typography
         variant='h5'
         sx={{
-          mb: '30px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -67,7 +75,9 @@ function FormMacros({ formData, setFormData, defaultValues }) {
         Complete the form
       </Typography>
 
-      <Grid container spacing={2} >
+      <Typography variant='body1' sx={{ textAlign: 'center', mt: '8px' }}>Fill the form with the requested data. It is important to show your <b>recommended macros</b></Typography>
+
+      <Grid container spacing={2} sx={{ mt: '15px' }} >
         {textInputs.map((input) =>
           <Grid item xs={12} lg={6} key={input.name} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Controller
@@ -138,7 +148,8 @@ function FormMacros({ formData, setFormData, defaultValues }) {
         Submit
       </Button>
       {formData ? (
-        <ConfirmSnackbar open={open} setOpen={setOpen} />) : null}
+        <ConfirmSnackbar open={open} setOpen={setOpen} isCorrect message='Your data was saved!' />)
+        : null}
     </Box>
   );
 }

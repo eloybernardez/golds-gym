@@ -18,7 +18,6 @@ function FoodList({ foodItems, formData }) {
         alignItems='center'
       >
 
-
         {foodItems.length > 0 ? (
           foodItems.map((item) => (
             <Stack

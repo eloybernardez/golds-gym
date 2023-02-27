@@ -2,7 +2,7 @@ import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
-function ConfirmSnackbar({ open, setOpen }) {
+function ConfirmSnackbar({ open, setOpen, isCorrect = false, message }) {
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -20,10 +20,10 @@ function ConfirmSnackbar({ open, setOpen }) {
     >
       <Alert
         onClose={handleClose}
-        severity='success'
+        severity={isCorrect ? 'success' : 'error'}
         sx={{ width: '100%' }}
       >
-        Data saved!
+        {message}
       </Alert>
     </Snackbar>
 

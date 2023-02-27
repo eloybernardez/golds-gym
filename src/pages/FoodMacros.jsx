@@ -5,21 +5,14 @@ import FoodSearch from '../components/FoodSearch';
 import FormMacros from '../components/FormMacros';
 import FoodList from '../components/FoodList';
 import LoadInfo from '../assets/images/macro-insert.jpg';
+import RecommendedMacros from '../components/RecommendedMacros';
+import Loader from '../components/Loader';
 
 
-const defaultValues = {
-  SelectGender: 'female',
-  SelectActivity: '1',
-  SelectGoal: 'maintain',
-  SelectDiet: 'balanced',
-  ageInput: 25,
-  heightInput: 160,
-  weightInput: 70,
-};
 
 function FoodMacros() {
   const [foodItems, setFoodItems] = useState([]);
-  const [formData, setFormData] = useState(defaultValues);
+  const [formData, setFormData] = useState({});
 
   return (
     <Box
@@ -49,7 +42,7 @@ function FoodMacros() {
         </Typography>
 
 
-        <Stack spacing={2} direction={{ lg: 'row', xs: 'column' }} justifyContent='center' alignItems='center' mb='35px'  >
+        <Stack spacing={2} direction={{ lg: 'row', xs: 'column' }} justifyContent='center' alignItems='center' mb='55px'  >
 
           <Container sx={{ display: { lg: 'block', xs: 'none' }, width: '600px' }}>
             <img src={LoadInfo} alt='by Vlada Karpovich' style={{ borderRadius: '12px', width: '500px', height: '400px', clipPath: 'polygon(0 0, 100% 0, 100% 88%, 0 94%)' }} />
@@ -58,21 +51,20 @@ function FoodMacros() {
           <FormMacros
             formData={formData}
             setFormData={setFormData}
-            defaultValues={defaultValues}
           />
         </Stack>
+
+        {formData ? <RecommendedMacros formData={formData} /> : <Loader />}
 
         <FoodSearch
           foodItems={foodItems}
           setFoodItems={setFoodItems}
         />
 
-
         <FoodList
           foodItems={foodItems}
           formData={formData}
         />
-
 
       </Stack>
     </Box >

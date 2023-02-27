@@ -14,7 +14,8 @@
     "react-icons": "^4.7.1",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "swiper": "^9.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

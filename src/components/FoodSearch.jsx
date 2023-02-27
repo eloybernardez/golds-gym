@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
 import { Typography } from '@mui/material';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import { MdFilter2 } from 'react-icons/md';
+import ConfirmSnackbar from './ConfirmSnackbar'
 import SearchBar from './SearchBar';
 import { getFoodMacros } from '../utils/fetchData';
 
 function FoodSearch({ foodItems, setFoodItems }) {
   const [foodSearch, setFoodSearch] = useState('');
   const [error, setError] = useState(false);
-
-
+  const [open, setOpen] = useState(false);
 
   const handleFood = async () => {
     const fetchedFood = await getFoodMacros(foodSearch);
     const isRepeated = foodItems.find((food) => fetchedFood[0]?.name === food[0]?.[1])
 
+    setOpen(true)
     if (!fetchedFood.length > 0 || isRepeated) {
-      setError(true);
+      setError(true)
       return;
     }
+
     // Format food's keys to use
     const foodEntries = fetchedFood.map((food) => Object.entries(food));
     const formattedMacros = foodEntries[0].map((food, index) => {
@@ -40,39 +40,31 @@ function FoodSearch({ foodItems, setFoodItems }) {
   return (
     <>
       <Typography
-      variant='h5'
-      px={1}
-      sx={{
-        mb: '20px',
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-      }}
+        variant='h5'
+        px={1}
+        sx={{
+          mb: '20px',
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+        }}
       >
-      <MdFilter2
-        color='#ff2625'
-        size='30px'
-        style={{ marginRight: '12px' }}
-      />{' '}
-      Insert consumed food
-    </Typography>
+        <MdFilter2
+          color='#ff2625'
+          size='30px'
+          style={{ marginRight: '12px' }}
+        />{' '}
+        Insert consumed food
+      </Typography>
 
-      {
-    error ? (
-      <Alert severity='error' sx={{ mb: '20px' }}>
-        <AlertTitle>Error</AlertTitle>
-        Food not found or already added
-      </Alert>
-    ) : null
-  }
+      <ConfirmSnackbar open={open} setOpen={setOpen} isCorrect={!error} message={!error ? 'Food added!' : 'Food not found or already added'} />
 
-  <SearchBar
-    search={foodSearch}
-    setSearch={setFoodSearch}
-    handleSearch={handleFood}
-    isAFoodSearch
-  />
-
+      <SearchBar
+        search={foodSearch}
+        setSearch={setFoodSearch}
+        handleSearch={handleFood}
+        isAFoodSearch
+      />
     </>
   );
 }
