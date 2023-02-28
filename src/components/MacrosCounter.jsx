@@ -27,23 +27,25 @@ function MacrosCounter({ savedFood, formData }) {
       sx={{ mt: '30px' }}
       alignItems='center'
 
+
     >
-      <Typography
-        variant='h5'
-        px={1}
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <Stack direction='row' gap={1} alignItems='center'>
         <MdFilter3
           color='#ff2625'
           size='30px'
-          style={{ marginRight: '12px' }}
-        />{' '}
-        These are the Macros you consumed beside the recommended ones
-      </Typography>
+        />
+        <Typography
+          variant='h5'
+          px={2}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            textAlign: 'center'
+          }}
+        >
+          These are the macros you have consumed today
+        </Typography>
+      </Stack>
 
       <List
         sx={{ display: 'flex', flexDirection: { lg: 'row', xs: 'column' }, justifyContent: 'space-evenly' }}

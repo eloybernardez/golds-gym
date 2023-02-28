@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React, { useState } from 'react';
 import { Box, Stack, Typography, Container } from '@mui/material';
 import FoodSearch from '../components/FoodSearch';
@@ -7,12 +6,16 @@ import FoodList from '../components/FoodList';
 import LoadInfo from '../assets/images/macro-insert.jpg';
 import RecommendedMacros from '../components/RecommendedMacros';
 import Loader from '../components/Loader';
+import ConsumedMacros from '../components/ConsumedMacros';
+import FoodCard from '../components/FoodCard'
 
 
 
 function FoodMacros() {
   const [foodItems, setFoodItems] = useState([]);
   const [formData, setFormData] = useState({});
+  const [savedFood, setSavedFood] = useState([])
+  const foodCardParams = { setSavedFood, savedFood, foodItems, setFoodItems }
 
   return (
     <Box
@@ -54,18 +57,42 @@ function FoodMacros() {
           />
         </Stack>
 
-        {formData ? <RecommendedMacros formData={formData} /> : <Loader />}
+        {Object.keys(formData).length ?
+          <Stack
+            justifyContent='center'
+            alignItems='center'>
 
-        <FoodSearch
-          foodItems={foodItems}
-          setFoodItems={setFoodItems}
-        />
+            <RecommendedMacros formData={formData} />
 
-        <FoodList
-          foodItems={foodItems}
-          formData={formData}
-        />
+            <FoodSearch
+              foodItems={foodItems}
+              setFoodItems={setFoodItems}
+            />
 
+            <FoodList
+              foodItems={foodItems}
+              renderCard={(item) => (
+                <Stack
+                  direction={{ lg: 'row', xs: 'column' }}
+                  gap={3}
+                  p={2}
+                  key={item[0]?.[1]}
+                >
+                  <FoodCard
+                    params={{ ...foodCardParams, item }}
+                  />
+                </Stack>
+              )}
+            />
+
+            <ConsumedMacros savedFood={savedFood} formData={formData} />
+
+          </Stack> :
+          <Stack direction='column' alignItems='center' >
+            <Typography variant='body2' sx={{ textAlign: 'center' }}>Waiting for your data...</Typography>
+            <Loader />
+          </Stack>
+        }
       </Stack>
     </Box >
   );

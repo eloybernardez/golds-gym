@@ -75,7 +75,6 @@ function Navbar() {
           }}
         >
           <BottomNavigationAction label='Home' icon={<Home />} component={Link} to='/' onClick={() => window.scrollTo(0, 0)} />
-          <BottomNavigationAction label='Exercises' icon={<SportsGymnastics />} component={Link} to='#exercises' />
           <BottomNavigationAction label='Macros' icon={<LocalPizzaIcon />} component={Link} to='/macros' onClick={() => window.scrollTo(0, 0)} />
         </BottomNavigation>
       </Paper>
