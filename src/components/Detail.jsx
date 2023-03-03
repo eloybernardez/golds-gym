@@ -20,7 +20,7 @@ function Detail({ exerciseDetail }) {
   return (
     <Stack
       gap='16px'
-      sx={{ flexDirection: { lg: 'row' }, p: '20px', alignItems: 'center' }}
+      sx={{ flexDirection: { lg: 'row' }, p: '20px', alignItems: 'center', mt: '24px' }}
     >
       <img
         src={images?.length > 0 ? images[0].image : NotFound}

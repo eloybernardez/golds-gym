@@ -13,10 +13,12 @@ export default function useMacros (formData) {
     }
     async function receiveMacros() {
       const idealUserMacros = await getMacros(formData);
-      idealUserMacros.calories = maxCalories;
-      if (idealUserMacros) setMacros(idealUserMacros)
+      if(maxCalories && idealUserMacros) {
+        idealUserMacros.calories = maxCalories;
+        setMacros(idealUserMacros)
+      }
     }
-    if(formData.ageInput) {
+    if(Object.keys(formData).length) {
       receiveMaxCalories();
       receiveMacros();
   }

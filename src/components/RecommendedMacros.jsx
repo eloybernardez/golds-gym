@@ -1,11 +1,12 @@
 import React from 'react'
-import { Box, Card, CardContent, Typography, Stack } from '@mui/material'
+import { Box, Typography, Stack } from '@mui/material'
 import useMacros from '../hooks/useMacros'
+import MacrosCard from './MacrosCard'
 
 
 function RecommendedMacros({ formData }) {
   const macros = useMacros(formData)
-  const orderMacros = Object.entries(macros) // convert object to array
+  const orderedMacros = Object.entries(macros) // convert object to array
 
   return (
     <Box sx={{ mb: '55px' }}>
@@ -15,24 +16,19 @@ function RecommendedMacros({ formData }) {
 
           <Stack direction={{ lg: 'row', xs: 'column' }} justifyContent={{ lg: 'space-evenly', xs: 'space-around' }} alignItems='center' >
 
-            {orderMacros.map((item, index) =>
+            {orderedMacros.map((item, index) =>
 
-              <Card variant='outlined'
-                key={`reco-macro-${item[0]}`} sx={{ width: '300px', height: '200px', mx: '8px', textAlign: 'center', mb: '10px' }}>
+              <MacrosCard key={`recommended-macro-${item[0]}`}>
+                <Typography variant='h5' component='div'>
+                  {item[0].slice(0, 1).toUpperCase()}{item[0].slice(1)}
+                </Typography>
 
-                <CardContent>
-                  <Typography variant='h5' component='div'>
-                    {item[0].slice(0, 1).toUpperCase()}{item[0].slice(1)}
-                  </Typography>
+                <Typography variant='body2'>
+                  Recommended for you:
+                </Typography>
 
-                  <Typography variant='body2'>
-                    Recommended for you:
-                  </Typography>
-
-                  <Typography sx={{ color: '#ff2625', fontWeight: 'bold', fontSize: '3rem', mt: '12px' }}>{Math.floor(item[1])} {index + 1 !== orderMacros.length ? 'g' : 'kcal'}</Typography>
-                </CardContent>
-
-              </Card>)}
+                <Typography sx={{ color: '#ff2625', fontWeight: 'bold', fontSize: '3rem', mt: '12px' }}>{Math.floor(item[1])} {index + 1 !== orderedMacros.length ? 'g' : 'kcal'}</Typography>
+              </MacrosCard>)}
           </Stack>
         </> : null}
     </Box>)

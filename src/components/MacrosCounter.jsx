@@ -1,33 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Stack,
   Typography,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
 } from '@mui/material';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { MdFilter3 } from 'react-icons/md';
-import CheckIcon from '@mui/icons-material/Check';
-import Loader from './Loader'
+import { lightGreen } from '@mui/material/colors'
 import useMacros from '../hooks/useMacros';
 import sumUserMacros from '../utils/sumUserMacros';
-
+import MacrosCard from './MacrosCard'
+import Loader from './Loader'
 
 function MacrosCounter({ savedFood, formData }) {
   const macros = useMacros(formData);
+  const [userMacros, setUserMacros] = useState([])
 
-  const userMacros = sumUserMacros(savedFood);
+  useEffect(() => {
+    async function getUserMacros() {
+      const consumedMacros = await sumUserMacros(savedFood);
+      if (consumedMacros.length) setUserMacros(consumedMacros)
+    }
+    getUserMacros()
+  }, [savedFood])
+
 
   return (
     <Stack
       gap={3}
       sx={{ mt: '30px' }}
       alignItems='center'
-
-
     >
       <Stack direction='row' gap={1} alignItems='center'>
         <MdFilter3
@@ -47,29 +47,30 @@ function MacrosCounter({ savedFood, formData }) {
         </Typography>
       </Stack>
 
-      <List
+      <Stack
         sx={{ display: 'flex', flexDirection: { lg: 'row', xs: 'column' }, justifyContent: 'space-evenly' }}
       >
-        {userMacros.map((macro) =>
-          macros[macro[0]] ?
-            (<ListItem key={`macro-${macro[0]}`} >
-              <ListItemAvatar>
+        {userMacros.map((macro, index) =>
+        (<MacrosCard key={`cardMacro-${macro[0]}`} current={macro[1]} max={Math.floor(macros[macro[0]])}>
+          <Typography variant='h5' component='div'>
+            {macro[0].slice(0, 1).toUpperCase()}{macro[0].slice(1)}
+          </Typography>
 
-                <Avatar sx={{ backgroundColor: '#ffffff', boxShadow: '-1px 0px 9px 1px rgba(0,0,0,0.49)', }}>
-                  {macro[1] >= Math.floor(macros[macro[0]]) ? <CheckIcon style={{ color: '#50c32e' }} /> : <LocalFireDepartmentIcon style={{ color: '#ff2625' }} />}
-                </Avatar>
+          <Typography variant='body2'>
+            Recommended for you:
+          </Typography>
 
-              </ListItemAvatar>
+          <Typography sx={{ color: macro[1] >= Math.floor(macros[macro[0]]) ? lightGreen[500] : '#ff2625', fontWeight: 'bold', fontSize: '3rem', mb: '12px' }}>{macros[macro[0]] ? Math.floor(macros[macro[0]]) : <Loader />} {index !== 0 ? 'g' : 'kcal'}</Typography>
 
-              <ListItemText
-                sx={{ textTransform: 'capitalize' }}
-                primary={<Typography variant='h6' sx={{ fontWeight: 'bold' }}>{macro[0]}</Typography>}
-                secondary={<Typography variant='body2'>{macro[1]} / {Math.floor(macros[macro[0]])}</Typography>}
-              />
-            </ListItem>)
-            : <Loader />
+          <Typography variant='body2'>
+            You have consumed:
+          </Typography>
+
+          <Typography sx={{ color: macro[1] >= Math.floor(macros[macro[0]]) ? lightGreen[500] : '#ff2625', fontWeight: 'bold', fontSize: '3rem' }}>{macro[1]} {index !== 0 ? 'g' : 'kcal'}</Typography>
+
+        </MacrosCard>)
         )}
-      </List>
+      </Stack>
     </Stack>
   );
 }

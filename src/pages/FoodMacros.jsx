@@ -7,6 +7,7 @@ import LoadInfo from '../assets/images/macro-insert.jpg';
 import RecommendedMacros from '../components/RecommendedMacros';
 import Loader from '../components/Loader';
 import ConsumedMacros from '../components/ConsumedMacros';
+import MacrosCounter from '../components/MacrosCounter';
 import FoodCard from '../components/FoodCard'
 
 
@@ -85,9 +86,12 @@ function FoodMacros() {
               )}
             />
 
-            <ConsumedMacros savedFood={savedFood} formData={formData} />
-
+            {savedFood.length ?
+              <ConsumedMacros>
+                <MacrosCounter savedFood={savedFood} formData={formData} />
+              </ConsumedMacros> : null}
           </Stack> :
+
           <Stack direction='column' alignItems='center' >
             <Typography variant='body2' sx={{ textAlign: 'center' }}>Waiting for your data...</Typography>
             <Loader />

@@ -21,6 +21,6 @@ module.exports = {
     'operator-linebreak': 0,
     'no-return-assing':0,
     indent: 0,
-    'no-confusing-arrow': 0,
+    'no-confusing-arrow': 0
   },
 };
