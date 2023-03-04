@@ -8,7 +8,7 @@ function ExerciseCard({ exercise }) {
     <Link
       className='exercise-card'
       to={`/exercise/${exercise.exercise_base_id}`}
-      style={{marginRight: '15px', marginLeft: '15px'}}
+      style={{ marginRight: '15px', marginLeft: '15px' }}
     >
       <img
         src={exercise.images[0]?.image || NotFound}
@@ -50,9 +50,7 @@ function ExerciseCard({ exercise }) {
                 textTransform: 'capitalize',
               }}
             >
-              {equip.name.includes('none')
-              ? 'Bodyweight'
-              : equip.name}
+              {equip.name.includes('none') ? 'Bodyweight' : equip.name}
             </Typography>
           ))}
         </Stack>

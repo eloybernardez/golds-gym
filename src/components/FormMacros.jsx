@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import {
-  TextField,
-  Select,
-  Box,
-  Button,
-  InputLabel,
-  Typography,
-  Grid,
-  FormControl,
-} from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { Box, Button, Typography, Grid } from '@mui/material';
 import { MdFilter1 } from 'react-icons/md';
 import ConfirmSnackbar from './ConfirmSnackbar';
-import { selectInputs, textInputs } from '../utils/formInputs'
-
+import { selectInputs, textInputs } from '../utils/formInputs';
+import FormInput from './FormInput';
+import FormSelect from './FormSelect';
 
 const defaultValues = {
   SelectGender: 'female',
@@ -28,12 +20,9 @@ const defaultValues = {
 function FormMacros({ formData, setFormData }) {
   const [open, setOpen] = useState(false);
 
-
-  const {
-    handleSubmit,
-    control,
-  } = useForm({ defaultValues: { ...defaultValues } });
-
+  const { handleSubmit, control } = useForm({
+    defaultValues: { ...defaultValues },
+  });
 
   const onSubmit = (data) => {
     setFormData(data);
@@ -55,7 +44,7 @@ function FormMacros({ formData, setFormData }) {
         borderRadius: '6px',
         p: '16px',
         width: { lg: '700px', xs: '320px' },
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <Typography
@@ -75,62 +64,32 @@ function FormMacros({ formData, setFormData }) {
         Complete the form
       </Typography>
 
-      <Typography variant='body1' sx={{ textAlign: 'center', mt: '8px' }}>Fill the form with the requested data. It is important to show your <b>recommended macros</b></Typography>
+      <Typography
+        variant='body1'
+        sx={{ textAlign: 'center', mt: '8px' }}
+      >
+        Fill the form with the requested data. It is important to show your{' '}
+        <b>recommended macros</b>
+      </Typography>
 
-      <Grid container spacing={2} sx={{ mt: '15px' }} >
-        {textInputs.map((input) =>
-          <Grid item xs={12} lg={6} key={input.name} sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Controller
-              name={`${input.name}Input`}
-              control={control}
-              rules={input.rules}
-              render={({
-                field: { onChange, value, onBlur },
-                fieldState: { invalid, error, isValid },
-              }) => (
-                <TextField
-                  sx={{ width: '300px' }}
-                  value={value}
-                  onBlur={onBlur}
-                  onChange={(e) => onChange(Number(e.target.value))}
-                  placeholder={input.placeholder}
-                  label={`${input.name.slice(0, 1).toUpperCase()}${input.name.slice(1)}`}
-                  error={!isValid && invalid}
-                  helperText={
-                    !isValid && invalid
-                      ? `${error?.message}`
-                      : input.errorMsg
-                  }
+      <Grid
+        container
+        spacing={2}
+        sx={{ mt: '15px' }}
+      >
+        {textInputs.map((input) => (
+          <FormInput
+            input={input}
+            control={control}
+          />
+        ))}
 
-                />
-              )}
-            /></Grid>
-        )}
-
-        {selectInputs.map((select) =>
-          <Grid item xs={12} lg={6} key={select.name} sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Controller
-              name={`Select${select.name.slice(0, 1).toUpperCase()}${select.name.slice(1)}`}
-              control={control}
-              defaultValue={select.defaultValue}
-              render={({ field: { onChange, value, onBlur } }) => (
-                <FormControl sx={{ width: '300px' }}>
-                  <InputLabel id={`${select.gender}-select`}>{select.label.slice(0, 1).toUpperCase()}{select.label.slice(1)}</InputLabel>
-                  <Select
-                    onChange={onChange}
-                    value={value}
-                    onBlur={onBlur}
-                    label={`Select${select.name}`}
-                    labelId={`${select.gender}-select`}
-                    id={`${select.gender}-select`}
-
-                  >
-                    {select.items.map((menuItem) => menuItem)}
-                  </Select>
-                </FormControl>
-              )}
-            />
-          </Grid>)}
+        {selectInputs.map((select) => (
+          <FormSelect
+            select={select}
+            control={control}
+          />
+        ))}
       </Grid>
 
       <Button
@@ -147,9 +106,15 @@ function FormMacros({ formData, setFormData }) {
       >
         Submit
       </Button>
+
       {formData ? (
-        <ConfirmSnackbar open={open} setOpen={setOpen} isCorrect message='Your data was saved!' />)
-        : null}
+        <ConfirmSnackbar
+          open={open}
+          setOpen={setOpen}
+          isCorrect
+          message='Your data was saved!'
+        />
+      ) : null}
     </Box>
   );
 }

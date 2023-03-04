@@ -10,7 +10,7 @@
   "editor.fontLigatures": true,
   "editor.fontWeight": 400,
   "[javascriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,

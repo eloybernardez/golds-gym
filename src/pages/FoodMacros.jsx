@@ -8,15 +8,13 @@ import RecommendedMacros from '../components/RecommendedMacros';
 import Loader from '../components/Loader';
 import ConsumedMacros from '../components/ConsumedMacros';
 import MacrosCounter from '../components/MacrosCounter';
-import FoodCard from '../components/FoodCard'
-
-
+import FoodCard from '../components/FoodCard';
 
 function FoodMacros() {
   const [foodItems, setFoodItems] = useState([]);
   const [formData, setFormData] = useState({});
-  const [savedFood, setSavedFood] = useState([])
-  const foodCardParams = { setSavedFood, savedFood, foodItems, setFoodItems }
+  const [savedFood, setSavedFood] = useState([]);
+  const foodCardParams = { setSavedFood, savedFood, foodItems, setFoodItems };
 
   return (
     <Box
@@ -26,7 +24,6 @@ function FoodMacros() {
         mt: '35px',
         mx: 'auto',
       }}
-
     >
       <Stack
         justifyContent='center'
@@ -45,11 +42,26 @@ function FoodMacros() {
           Because we all know that exercising is not enough...
         </Typography>
 
-
-        <Stack spacing={2} direction={{ lg: 'row', xs: 'column' }} justifyContent='center' alignItems='center' mb='55px'  >
-
-          <Container sx={{ display: { lg: 'block', xs: 'none' }, width: '600px' }}>
-            <img src={LoadInfo} alt='by Vlada Karpovich' style={{ borderRadius: '12px', width: '500px', height: '400px', clipPath: 'polygon(0 0, 100% 0, 100% 88%, 0 94%)' }} />
+        <Stack
+          spacing={2}
+          direction={{ lg: 'row', xs: 'column' }}
+          justifyContent='center'
+          alignItems='center'
+          mb='55px'
+        >
+          <Container
+            sx={{ display: { lg: 'block', xs: 'none' }, width: '600px' }}
+          >
+            <img
+              src={LoadInfo}
+              alt='by Vlada Karpovich'
+              style={{
+                borderRadius: '12px',
+                width: '500px',
+                height: '400px',
+                clipPath: 'polygon(0 0, 100% 0, 100% 88%, 0 94%)',
+              }}
+            />
           </Container>
 
           <FormMacros
@@ -58,11 +70,11 @@ function FoodMacros() {
           />
         </Stack>
 
-        {Object.keys(formData).length ?
+        {Object.keys(formData).length ? (
           <Stack
             justifyContent='center'
-            alignItems='center'>
-
+            alignItems='center'
+          >
             <RecommendedMacros formData={formData} />
 
             <FoodSearch
@@ -79,26 +91,36 @@ function FoodMacros() {
                   p={2}
                   key={item[0]?.[1]}
                 >
-                  <FoodCard
-                    params={{ ...foodCardParams, item }}
-                  />
+                  <FoodCard params={{ ...foodCardParams, item }} />
                 </Stack>
               )}
             />
 
-            {savedFood.length ?
+            {savedFood.length ? (
               <ConsumedMacros>
-                <MacrosCounter savedFood={savedFood} formData={formData} />
-              </ConsumedMacros> : null}
-          </Stack> :
-
-          <Stack direction='column' alignItems='center' >
-            <Typography variant='body2' sx={{ textAlign: 'center' }}>Waiting for your data...</Typography>
+                <MacrosCounter
+                  savedFood={savedFood}
+                  formData={formData}
+                />
+              </ConsumedMacros>
+            ) : null}
+          </Stack>
+        ) : (
+          <Stack
+            direction='column'
+            alignItems='center'
+          >
+            <Typography
+              variant='body2'
+              sx={{ textAlign: 'center' }}
+            >
+              Waiting for your data...
+            </Typography>
             <Loader />
           </Stack>
-        }
+        )}
       </Stack>
-    </Box >
+    </Box>
   );
 }
 

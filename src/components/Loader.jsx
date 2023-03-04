@@ -1,13 +1,18 @@
-import React from 'react'
-import {Stack} from '@mui/material'
-import { InfinitySpin } from 'react-loader-spinner'
+import React from 'react';
+import { Stack } from '@mui/material';
+import { InfinitySpin } from 'react-loader-spinner';
 
 function Loader() {
   return (
-    <Stack direction='row' justifyContent='center' alignItems='center' width='100%'>
-        <InfinitySpin color='#ff2625'/>
+    <Stack
+      direction='row'
+      justifyContent='center'
+      alignItems='center'
+      width='100%'
+    >
+      <InfinitySpin color='#ff2625' />
     </Stack>
-  )
+  );
 }
 
-export default Loader
+export default Loader;

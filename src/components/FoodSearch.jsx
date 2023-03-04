@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 import { MdFilter2 } from 'react-icons/md';
-import ConfirmSnackbar from './ConfirmSnackbar'
+import ConfirmSnackbar from './ConfirmSnackbar';
 import SearchBar from './SearchBar';
 import { getFoodMacros } from '../utils/fetchData';
 
@@ -12,11 +12,13 @@ function FoodSearch({ foodItems, setFoodItems }) {
 
   const handleFood = async () => {
     const fetchedFood = await getFoodMacros(foodSearch);
-    const isRepeated = foodItems.find((food) => fetchedFood[0]?.name === food[0]?.[1])
+    const isRepeated = foodItems.find(
+      (food) => fetchedFood[0]?.name === food[0]?.[1]
+    );
 
-    setOpen(true)
+    setOpen(true);
     if (!fetchedFood.length > 0 || isRepeated) {
-      setError(true)
+      setError(true);
       return;
     }
 
@@ -57,7 +59,12 @@ function FoodSearch({ foodItems, setFoodItems }) {
         Insert consumed food
       </Typography>
 
-      <ConfirmSnackbar open={open} setOpen={setOpen} isCorrect={!error} message={!error ? 'Food added!' : 'Food not found or already added'} />
+      <ConfirmSnackbar
+        open={open}
+        setOpen={setOpen}
+        isCorrect={!error}
+        message={!error ? 'Food added!' : 'Food not found or already added'}
+      />
 
       <SearchBar
         search={foodSearch}

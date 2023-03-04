@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { Box, Button, TextField } from '@mui/material'
+import React, { memo } from 'react';
+import { Box, Button, TextField } from '@mui/material';
 
 function SearchBar({ search, setSearch, handleSearch, isAFoodSearch = false }) {
   return (
@@ -23,7 +23,9 @@ function SearchBar({ search, setSearch, handleSearch, isAFoodSearch = false }) {
         onChange={(e) => {
           setSearch(e.target.value.toLowerCase());
         }}
-        placeholder={isAFoodSearch ? 'Insert Food (one by one) ' : 'Search Exercises'}
+        placeholder={
+          isAFoodSearch ? 'Insert Food (one by one) ' : 'Search Exercises'
+        }
         type='text'
       />
       <Button
@@ -43,7 +45,7 @@ function SearchBar({ search, setSearch, handleSearch, isAFoodSearch = false }) {
         Search
       </Button>
     </Box>
-  )
+  );
 }
 
-export default memo(SearchBar)
+export default memo(SearchBar);

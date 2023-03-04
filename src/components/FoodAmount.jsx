@@ -1,5 +1,5 @@
-import React from 'react'
-import { Stack, Typography, TextField, Button } from '@mui/material'
+import React from 'react';
+import { Stack, Typography, TextField, Button } from '@mui/material';
 
 function FoodAmount({ servingSize, setServingSize, handleSavedFood }) {
   return (
@@ -10,9 +10,7 @@ function FoodAmount({ servingSize, setServingSize, handleSavedFood }) {
         placeholder='Modify serving size (G)'
         onChange={(e) =>
           setServingSize(
-            Number(e.target.value) >= 0
-              ? Number(e.target.value)
-              : servingSize
+            Number(e.target.value) >= 0 ? Number(e.target.value) : servingSize
           )
         }
       />
@@ -28,7 +26,7 @@ function FoodAmount({ servingSize, setServingSize, handleSavedFood }) {
         Add Food
       </Button>
     </Stack>
-  )
+  );
 }
 
-export default FoodAmount
+export default FoodAmount;

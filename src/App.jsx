@@ -9,22 +9,20 @@ import Footer from './components/Footer';
 import FoodMacros from './pages/FoodMacros';
 import './App.css';
 
-
-
 function App() {
   const gymTheme = createTheme({
     palette: {
       primary: { main: '#ff2625' },
       secondary: { main: '#3A1212' },
-    }
-  })
+    },
+  });
   return (
     <Box
       width='400px'
       sx={{ width: { xl: '1488px' } }}
       m='auto'
     >
-      <ThemeProvider theme={gymTheme} >
+      <ThemeProvider theme={gymTheme}>
         <Navbar />
         <Routes>
           <Route

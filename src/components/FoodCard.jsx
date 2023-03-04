@@ -7,8 +7,7 @@ import ConfirmSnackbar from './ConfirmSnackbar';
 import FoodAmount from './FoodAmount';
 
 function FoodCard({ params }) {
-  const { setSavedFood, savedFood, foodItems, setFoodItems, item
-  } = params;
+  const { setSavedFood, savedFood, foodItems, setFoodItems, item } = params;
   const [servingSize, setServingSize] = useState(100);
   const [open, setOpen] = useState(false);
 
@@ -35,31 +34,41 @@ function FoodCard({ params }) {
   };
 
   const eliminateFood = (food) => {
-    const foodToEliminate = foodItems.find((f) => f[0]?.[1] === food[0]?.[1])
+    const foodToEliminate = foodItems.find((f) => f[0]?.[1] === food[0]?.[1]);
     if (foodToEliminate !== -1) {
-      const updatedItems = foodItems.filter((f) => f !== foodToEliminate)
-      const updatedSavedItems = savedFood.filter((f) => f[0]?.[1] !== foodToEliminate[0]?.[1])
+      const updatedItems = foodItems.filter((f) => f !== foodToEliminate);
+      const updatedSavedItems = savedFood.filter(
+        (f) => f[0]?.[1] !== foodToEliminate[0]?.[1]
+      );
 
-      setFoodItems([...updatedItems])
-      setSavedFood([...updatedSavedItems])
+      setFoodItems([...updatedItems]);
+      setSavedFood([...updatedSavedItems]);
     }
-  }
+  };
 
   return (
     <>
       <Card sx={{ width: '300px' }}>
         <CardContent sx={{ textTransform: 'capitalize' }}>
-          <Stack direction='row' sx={{ display: 'flex', mb: '8px' }} justifyContent='space-between' alignItems='center'><Typography
-            variant='h4'
-            color='#ff2625'
+          <Stack
+            direction='row'
+            sx={{ display: 'flex', mb: '8px' }}
+            justifyContent='space-between'
+            alignItems='center'
           >
-            {item[0]?.[1]}
-          </Typography>
-            <Button onClick={() => eliminateFood(item)} variant='text'>
+            <Typography
+              variant='h4'
+              color='#ff2625'
+            >
+              {item[0]?.[1]}
+            </Typography>
+            <Button
+              onClick={() => eliminateFood(item)}
+              variant='text'
+            >
               <CloseIcon />
             </Button>
           </Stack>
-
 
           {item.map((food, index) =>
             index !== 0 ? (
@@ -70,7 +79,6 @@ function FoodCard({ params }) {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                   }}
-
                 >
                   <Typography
                     sx={{
@@ -86,18 +94,28 @@ function FoodCard({ params }) {
                       ? Math.floor((food[1] * servingSize) / 100)
                       : food[1]}
                   </Typography>
-
                 </Stack>
                 <Divider sx={{ mb: '5px', mt: '5px' }} />
               </div>
             ) : null
           )}
 
-          <FoodAmount servingSize={servingSize} setServingSize={setServingSize} handleSavedFood={handleSavedFood} />
+          <FoodAmount
+            servingSize={servingSize}
+            setServingSize={setServingSize}
+            handleSavedFood={handleSavedFood}
+          />
         </CardContent>
       </Card>
 
-      <ConfirmSnackbar open={open} setOpen={setOpen} isCorrect message={`${item[0]?.[1].slice(0, 1).toUpperCase()}${item[0]?.[1].slice(1)} confirmed`} />
+      <ConfirmSnackbar
+        open={open}
+        setOpen={setOpen}
+        isCorrect
+        message={`${item[0]?.[1].slice(0, 1).toUpperCase()}${item[0]?.[1].slice(
+          1
+        )} confirmed`}
+      />
     </>
   );
 }

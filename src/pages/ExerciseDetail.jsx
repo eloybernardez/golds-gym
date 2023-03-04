@@ -9,33 +9,40 @@ import SimilarExercises from '../components/SimilarExercises';
 function ExerciseDetail() {
   const [exerciseDetail, setExerciseDetail] = useState({});
   const [exerciseVideos, setExerciseVideos] = useState([]);
-  const [targetMuscleExercises,setTargetMuscleExercises] = useState([]);
-  const [equipmentExercises,setEquipmentExercises] = useState([]);
+  const [targetMuscleExercises, setTargetMuscleExercises] = useState([]);
+  const [equipmentExercises, setEquipmentExercises] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     const getExerciseDetail = async () => {
       const exerciseInfo = await fetchExercises();
-      const youtubeSearchUrl ='https://youtube-search-and-download.p.rapidapi.com';
+      const youtubeSearchUrl =
+        'https://youtube-search-and-download.p.rapidapi.com';
 
-      
       const exerciseDetailData = exerciseInfo.find(
         (exercise) => exercise.exercise_base_id === Number(id)
-        );
-        
-        setExerciseDetail(exerciseDetailData);
+      );
 
-        const {contents} = await fetchData(
-          `${youtubeSearchUrl}/search?query=${exerciseDetailData.name}&type=v`,
-          youtubeOptions
-        );
-      if (contents)  setExerciseVideos(contents);
+      setExerciseDetail(exerciseDetailData);
 
-      const targetMuscleExercisesData = exerciseInfo.filter((exercise) => exercise.category?.name === exerciseDetailData.category?.name);
-      
-      const equipmentExercisesData = exerciseInfo.filter((exercise) => exercise.equipment?.id === exerciseDetailData.equipment?.id);
+      const { contents } = await fetchData(
+        `${youtubeSearchUrl}/search?query=${exerciseDetailData.name}&type=v`,
+        youtubeOptions
+      );
+      if (contents) setExerciseVideos(contents);
 
-      if (targetMuscleExercisesData) setTargetMuscleExercises(targetMuscleExercisesData);
+      const targetMuscleExercisesData = exerciseInfo.filter(
+        (exercise) =>
+          exercise.category?.name === exerciseDetailData.category?.name
+      );
+
+      const equipmentExercisesData = exerciseInfo.filter(
+        (exercise) =>
+          exercise.equipment?.id === exerciseDetailData.equipment?.id
+      );
+
+      if (targetMuscleExercisesData)
+        setTargetMuscleExercises(targetMuscleExercisesData);
       if (equipmentExercisesData) setEquipmentExercises(equipmentExercisesData);
     };
 
@@ -45,8 +52,14 @@ function ExerciseDetail() {
   return (
     <Box>
       <Detail exerciseDetail={exerciseDetail} />
-      <ExerciseVideos exerciseVideos={exerciseVideos} name={exerciseDetail.name} />
-      <SimilarExercises targetMuscleExercises={targetMuscleExercises} equipmentExercises={equipmentExercises} />
+      <ExerciseVideos
+        exerciseVideos={exerciseVideos}
+        name={exerciseDetail.name}
+      />
+      <SimilarExercises
+        targetMuscleExercises={targetMuscleExercises}
+        equipmentExercises={equipmentExercises}
+      />
     </Box>
   );
 }

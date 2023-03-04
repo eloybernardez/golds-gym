@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Stack, BottomNavigation, BottomNavigationAction, Paper, Container } from '@mui/material';
-import { Home, SportsGymnastics } from '@mui/icons-material';
+import {
+  Stack,
+  BottomNavigation,
+  BottomNavigationAction,
+  Paper,
+  Container,
+} from '@mui/material';
+import { Home } from '@mui/icons-material';
 import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
 
 import Logo from '../assets/images/Logo.png';
-
 
 function Navbar() {
   const [value, setValue] = useState(0);
@@ -21,7 +26,15 @@ function Navbar() {
       }}
       px='20px'
     >
-      <Container sx={{ display: { lg: 'flex', xs: 'none' }, width: '48px', height: '48px', margin: '0 20px', alignItems: 'center' }}>
+      <Container
+        sx={{
+          display: { lg: 'flex', xs: 'none' },
+          width: '48px',
+          height: '48px',
+          margin: '0 20px',
+          alignItems: 'center',
+        }}
+      >
         <Link to='/'>
           <img
             src={Logo}
@@ -32,16 +45,23 @@ function Navbar() {
       </Container>
 
       <Stack
-        sx={{ gap: '40px', fontSize: '24px', alignItems: 'flex-end', display: { lg: 'flex', xs: 'none' } }}
-        direction='row'
-      ><Link
-        to='/'
-        className={isActive[0] ? 'link--active' : ''}
-        style={{
-          textDecoration: 'none',
-          color: '#3A1212',
+        sx={{
+          gap: '40px',
+          fontSize: '24px',
+          alignItems: 'flex-end',
+          display: { lg: 'flex', xs: 'none' },
         }}
-        onClick={() => setIsActive([!isActive[0], false, false])}>
+        direction='row'
+      >
+        <Link
+          to='/'
+          className={isActive[0] ? 'link--active' : ''}
+          style={{
+            textDecoration: 'none',
+            color: '#3A1212',
+          }}
+          onClick={() => setIsActive([!isActive[0], false, false])}
+        >
           Home
         </Link>
         <a
@@ -63,10 +83,20 @@ function Navbar() {
         >
           Macros
         </Link>
-      </Stack >
+      </Stack>
 
-
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: '#fff', zIndex: '2', display: { lg: 'none', xs: 'block' } }} elevation={3}>
+      <Paper
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: '#fff',
+          zIndex: '2',
+          display: { lg: 'none', xs: 'block' },
+        }}
+        elevation={3}
+      >
         <BottomNavigation
           showLabels
           value={value}
@@ -74,12 +104,23 @@ function Navbar() {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label='Home' icon={<Home />} component={Link} to='/' onClick={() => window.scrollTo(0, 0)} />
-          <BottomNavigationAction label='Macros' icon={<LocalPizzaIcon />} component={Link} to='/macros' onClick={() => window.scrollTo(0, 0)} />
+          <BottomNavigationAction
+            label='Home'
+            icon={<Home />}
+            component={Link}
+            to='/'
+            onClick={() => window.scrollTo(0, 0)}
+          />
+          <BottomNavigationAction
+            label='Macros'
+            icon={<LocalPizzaIcon />}
+            component={Link}
+            to='/macros'
+            onClick={() => window.scrollTo(0, 0)}
+          />
         </BottomNavigation>
       </Paper>
-
-    </Stack >
+    </Stack>
   );
 }
 

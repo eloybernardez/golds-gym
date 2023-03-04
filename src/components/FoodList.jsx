@@ -12,11 +12,11 @@ function FoodList({ foodItems, renderCard }) {
         justifyContent='space-evenly'
         alignItems='center'
       >
-
         {foodItems.length > 0 ? (
-          foodItems.map((item) => (
-            renderCard(item)))) :
-          <NoFood />}
+          foodItems.map((item) => renderCard(item))
+        ) : (
+          <NoFood />
+        )}
       </Stack>
     </Box>
   );

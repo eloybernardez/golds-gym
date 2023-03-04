@@ -5,16 +5,34 @@ import HeroBannerImage from '../assets/images/banner.png';
 
 function HeroBanner() {
   return (
-    <Box mt={{ lg: '212px' }} ml={{ sm: '50px' }} position='relative' p='20px'>
-      <Typography color='#ff2625' fontWeight='600' fontSize='26px'>
+    <Box
+      mt={{ lg: '212px' }}
+      ml={{ sm: '50px' }}
+      position='relative'
+      p='20px'
+    >
+      <Typography
+        color='#ff2625'
+        fontWeight='600'
+        fontSize='26px'
+      >
         Fitness Club
       </Typography>
-      <Typography fontWeight='700' fontSize={{ lg: '44px', xs: '40px' }} mb='23px' mt='30px'>
+      <Typography
+        fontWeight='700'
+        fontSize={{ lg: '44px', xs: '40px' }}
+        mb='23px'
+        mt='30px'
+      >
         Sweat, Smile
         <br />
         and Repeat
       </Typography>
-      <Typography fontSize='22px' lineHeight='35px' mb={4}>
+      <Typography
+        fontSize='22px'
+        lineHeight='35px'
+        mb={4}
+      >
         Check out the most effective exercises
       </Typography>
       <Button
@@ -33,7 +51,11 @@ function HeroBanner() {
       >
         Exercise
       </Typography>
-      <img src={HeroBannerImage} alt='Hero Banner' className='hero-banner-img' />
+      <img
+        src={HeroBannerImage}
+        alt='Hero Banner'
+        className='hero-banner-img'
+      />
     </Box>
   );
 }

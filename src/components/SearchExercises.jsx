@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Stack, Typography, TextField, Button } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import HorizontalScrollbar from './HorizontalScrollbar';
 import { exerciseOptions, fetchData, fetchExercises } from '../utils/fetchData';
 
@@ -66,7 +66,11 @@ function SearchExercises({ setExercises, chosenBodyPart, setChosenBodyPart }) {
         <br />
         Should Know
       </Typography>
-      <SearchBar search={search} setSearch={setSearch} handleSearch={handleSearch} />
+      <SearchBar
+        search={search}
+        setSearch={setSearch}
+        handleSearch={handleSearch}
+      />
       <Box
         sx={{
           position: 'relative',

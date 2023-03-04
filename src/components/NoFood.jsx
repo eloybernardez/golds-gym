@@ -1,6 +1,5 @@
 import React from 'react';
 import NoFoodIcon from '@mui/icons-material/NoFood';
-import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import { Typography, Box, Stack } from '@mui/material';
 
 function NoFood() {
@@ -28,7 +27,6 @@ function NoFood() {
           sx={{ color: '#555', opacity: '0.5', textAlign: 'center' }}
         >
           {`You haven't eaten anything! Eat something`}
-
         </Typography>
       </Stack>
     </Box>

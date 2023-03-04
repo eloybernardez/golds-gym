@@ -3,7 +3,6 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
 function ConfirmSnackbar({ open, setOpen, isCorrect = false, message }) {
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -26,8 +25,7 @@ function ConfirmSnackbar({ open, setOpen, isCorrect = false, message }) {
         {message}
       </Alert>
     </Snackbar>
-
-  )
+  );
 }
 
-export default ConfirmSnackbar
+export default ConfirmSnackbar;

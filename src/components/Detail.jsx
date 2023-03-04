@@ -5,8 +5,7 @@ import EquipmentImage from '../assets/icons/equipment.png';
 import NotFound from '../assets/images/no-exercise.jpg';
 
 function Detail({ exerciseDetail }) {
-  const { name, description, category, equipment, images } =
-    exerciseDetail;
+  const { name, description, category, equipment, images } = exerciseDetail;
   const extraDetail = [
     {
       icon: TargetImage,
@@ -20,7 +19,12 @@ function Detail({ exerciseDetail }) {
   return (
     <Stack
       gap='16px'
-      sx={{ flexDirection: { lg: 'row' }, p: '20px', alignItems: 'center', mt: '24px' }}
+      sx={{
+        flexDirection: { lg: 'row' },
+        p: '20px',
+        alignItems: 'center',
+        mt: '24px',
+      }}
     >
       <img
         src={images?.length > 0 ? images[0].image : NotFound}

@@ -1,8 +1,7 @@
-import  {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react';
 import { getMacros, getNeededCalories } from '../utils/fetchData';
 
-
-export default function useMacros (formData) {
+export default function useMacros(formData) {
   const [maxCalories, setMaxCalories] = useState(0);
   const [macros, setMacros] = useState([]);
 
@@ -13,17 +12,16 @@ export default function useMacros (formData) {
     }
     async function receiveMacros() {
       const idealUserMacros = await getMacros(formData);
-      if(maxCalories && idealUserMacros) {
+      if (maxCalories && idealUserMacros) {
         idealUserMacros.calories = maxCalories;
-        setMacros(idealUserMacros)
+        setMacros(idealUserMacros);
       }
     }
-    if(Object.keys(formData).length) {
+    if (Object.keys(formData).length) {
       receiveMaxCalories();
       receiveMacros();
-  }
-
-  }, [formData, maxCalories])
+    }
+  }, [formData, maxCalories]);
 
   return macros;
 }
