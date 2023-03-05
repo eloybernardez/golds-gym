@@ -8,7 +8,6 @@ function FormInput({ input, control }) {
       item
       xs={12}
       lg={6}
-      key={input.name}
       sx={{ display: 'flex', justifyContent: 'center' }}
     >
       <Controller

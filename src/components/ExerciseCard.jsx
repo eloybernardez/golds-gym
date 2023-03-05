@@ -9,6 +9,9 @@ function ExerciseCard({ exercise }) {
       className='exercise-card'
       to={`/exercise/${exercise.exercise_base_id}`}
       style={{ marginRight: '15px', marginLeft: '15px' }}
+      onClick={() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }}
     >
       <img
         src={exercise.images[0]?.image || NotFound}

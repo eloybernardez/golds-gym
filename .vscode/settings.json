@@ -1,12 +1,12 @@
 {
-  "editor.fontFamily": "'Fira Code', \"Cascadia Code\", Consolas, 'Courier New', monospace",
+  "editor.fontFamily": " 'Fira Code', \"Cascadia Code\", Consolas, 'Courier New', monospace",
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
   "editor.formatOnType": false,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
-  "editor.fontSize": 20,
+  "editor.fontSize": 19,
   "editor.fontLigatures": true,
   "editor.fontWeight": 400,
   "[javascriptreact]": {

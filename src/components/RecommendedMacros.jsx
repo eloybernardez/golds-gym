@@ -37,6 +37,8 @@ function RecommendedMacros({ formData }) {
                 <Typography
                   variant='h5'
                   component='div'
+                  fontWeight={600}
+                  sx={{ color: '#ff2625' }}
                 >
                   {item[0].slice(0, 1).toUpperCase()}
                   {item[0].slice(1)}
@@ -45,11 +47,9 @@ function RecommendedMacros({ formData }) {
                 <Typography variant='body2'>Recommended for you:</Typography>
 
                 <Typography
+                  fontWeight={600}
                   sx={{
-                    color: '#ff2625',
-                    fontWeight: 'bold',
                     fontSize: '3rem',
-                    mt: '12px',
                   }}
                 >
                   {Math.floor(item[1])}{' '}

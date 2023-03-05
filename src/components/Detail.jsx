@@ -39,7 +39,7 @@ function Detail({ exerciseDetail }) {
         >
           {name}
         </Typography>
-        <Typography variant='h6'>{description}</Typography>
+        <Typography variant='body1'>{description}</Typography>
         {extraDetail.map((item) => (
           <Stack
             direction='row'

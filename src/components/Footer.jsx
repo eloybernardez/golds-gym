@@ -6,6 +6,7 @@ import Logo from '../assets/images/Logo-1.png';
 function Footer() {
   return (
     <Box
+      component='footer'
       mt='80px'
       bgcolor='#fff3f4'
       mb={{

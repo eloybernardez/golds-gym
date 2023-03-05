@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Chip } from '@mui/material';
 import { MdFilter3 } from 'react-icons/md';
-import { lightGreen } from '@mui/material/colors';
 import useMacros from '../hooks/useMacros';
 import sumUserMacros from '../utils/sumUserMacros';
 import MacrosCard from './MacrosCard';
 import Loader from './Loader';
+import ModalCompletedMacros from './ModalCompletedMacros';
 
 function MacrosCounter({ savedFood, formData }) {
   const macros = useMacros(formData);
   const [userMacros, setUserMacros] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    if (
+      macros.calories &&
+      userMacros.every((macro) => macro[1] >= Math.floor(macros[macro[0]]))
+    ) {
+      setOpenModal(true);
+    }
+  }, [userMacros]);
 
   useEffect(() => {
     const consumedMacros = sumUserMacros(savedFood);
@@ -22,27 +32,26 @@ function MacrosCounter({ savedFood, formData }) {
       sx={{ mt: '30px' }}
       alignItems='center'
     >
-      <Stack
-        direction='row'
-        gap={1}
-        alignItems='center'
+      <ModalCompletedMacros
+        open={openModal}
+        setOpen={setOpenModal}
+      />
+
+      <Typography
+        variant='h5'
+        px={2}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
       >
         <MdFilter3
           color='#ff2625'
           size='30px'
         />
-        <Typography
-          variant='h5'
-          px={2}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        >
-          These are the macros you have consumed today
-        </Typography>
-      </Stack>
+        These are your consumed macros
+      </Typography>
 
       <Stack
         sx={{
@@ -56,20 +65,27 @@ function MacrosCounter({ savedFood, formData }) {
             <Typography
               variant='h5'
               component='div'
+              fontWeight={600}
+              sx={{ color: '#ff2625' }}
             >
               {macro[0].slice(0, 1).toUpperCase()}
               {macro[0].slice(1)}
+              {macro[1] >= Math.floor(macros[macro[0]]) ? (
+                <Chip
+                  label='Completed'
+                  color='primary'
+                  size='small'
+                  sx={{ ml: '10px' }}
+                />
+              ) : null}
             </Typography>
 
             <Typography variant='body2'>Recommended for you:</Typography>
 
             <Typography
+              fontWeight={600}
+              variant='h5'
               sx={{
-                color:
-                  macro[1] >= Math.floor(macros[macro[0]])
-                    ? lightGreen[500]
-                    : '#ff2625',
-                fontWeight: 'bold',
                 fontSize: '3rem',
                 mb: '12px',
               }}
@@ -81,11 +97,12 @@ function MacrosCounter({ savedFood, formData }) {
             <Typography variant='body2'>You have consumed:</Typography>
 
             <Typography
+              variant='h5'
               sx={{
                 color:
                   macro[1] >= Math.floor(macros[macro[0]])
-                    ? lightGreen[500]
-                    : '#ff2625',
+                    ? '#ff2625'
+                    : '#000000',
                 fontWeight: 'bold',
                 fontSize: '3rem',
               }}

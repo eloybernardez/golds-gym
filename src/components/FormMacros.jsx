@@ -6,6 +6,7 @@ import ConfirmSnackbar from './ConfirmSnackbar';
 import { selectInputs, textInputs } from '../utils/formInputs';
 import FormInput from './FormInput';
 import FormSelect from './FormSelect';
+import { saveInLocalStorage } from '../utils/saveLocalStorage';
 
 const defaultValues = {
   SelectGender: 'female',
@@ -21,10 +22,13 @@ function FormMacros({ formData, setFormData }) {
   const [open, setOpen] = useState(false);
 
   const { handleSubmit, control } = useForm({
-    defaultValues: { ...defaultValues },
+    defaultValues: Object.keys(formData).length
+      ? { ...formData }
+      : { ...defaultValues },
   });
 
   const onSubmit = (data) => {
+    saveInLocalStorage('formData', data);
     setFormData(data);
   };
 
@@ -81,6 +85,7 @@ function FormMacros({ formData, setFormData }) {
           <FormInput
             input={input}
             control={control}
+            key={`form-${input.name}`}
           />
         ))}
 
@@ -88,6 +93,7 @@ function FormMacros({ formData, setFormData }) {
           <FormSelect
             select={select}
             control={control}
+            key={`form-${select.name}`}
           />
         ))}
       </Grid>

@@ -9,10 +9,13 @@ import Loader from '../components/Loader';
 import ConsumedMacros from '../components/ConsumedMacros';
 import MacrosCounter from '../components/MacrosCounter';
 import FoodCard from '../components/FoodCard';
+import { getFromLocalStorage } from '../utils/saveLocalStorage';
+
+const savedFormData = getFromLocalStorage('formData');
 
 function FoodMacros() {
   const [foodItems, setFoodItems] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(savedFormData);
   const [savedFood, setSavedFood] = useState([]);
   const foodCardParams = { setSavedFood, savedFood, foodItems, setFoodItems };
 

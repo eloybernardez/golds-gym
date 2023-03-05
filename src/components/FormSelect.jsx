@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, FormControl, InputLabel, Select } from '@mui/material';
+import { Grid, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Controller } from 'react-hook-form';
 
 function FormSelect({ select, control }) {
@@ -8,7 +8,6 @@ function FormSelect({ select, control }) {
       item
       xs={12}
       lg={6}
-      key={select.name}
       sx={{ display: 'flex', justifyContent: 'center' }}
     >
       <Controller
@@ -31,7 +30,14 @@ function FormSelect({ select, control }) {
               labelId={`${select.gender}-select`}
               id={`${select.gender}-select`}
             >
-              {select.items.map((menuItem) => menuItem)}
+              {select.items.map((item) => (
+                <MenuItem
+                  value={item.value}
+                  key={`item-${item.description}`}
+                >
+                  {item.description}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         )}
