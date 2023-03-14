@@ -17,10 +17,9 @@ const fitnessOptions = {
   method: 'GET',
   headers: {
     'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
-    'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
-  }
+    'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com',
+  },
 };
-
 
 const youtubeOptions = {
   method: 'GET',
@@ -31,22 +30,27 @@ const youtubeOptions = {
   },
 };
 
-const fetchData = async (url, options) => {
+async function fetchData(url, options) {
   try {
     const response = await fetch(url, options);
+    if (!response.ok) throw new Error('Something went wrong with the url :(');
     const data = await response.json();
+    if (!Object.entries(data).length) throw new Error('No data found');
     return data;
   } catch (error) {
-    throw new Error(error.message)
+    console.error(error);
   }
-};
+}
 
 const fetchExercises = async () => {
   try {
-    const { results } = await fetchData(
+    const exercisesArr = await fetchData(
       'https://wger.de/api/v2/exerciseinfo/?limit=500',
       exerciseOptions
     );
+    const results = exercisesArr?.results;
+
+    if (!results) return [];
 
     const searchedExercises = results
       .filter(
@@ -72,7 +76,7 @@ const fetchExercises = async () => {
 
     return searchedExercises;
   } catch (error) {
-    throw new Error(error.message)
+    console.error(error);
   }
 };
 
@@ -84,18 +88,25 @@ const getFoodMacros = async (food) => {
         `https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition?query=${food}`,
         nutritionOptions
       );
+    if (!foodMacros.length) throw new Error('No macros for this food found :(');
 
     return foodMacros;
   } catch (error) {
-    throw new Error(error.message)
+    console.error(error);
   }
 };
 
 const getNeededCalories = async (params) => {
-  const { SelectGender: gender, ageInput: age, heightInput: height, weightInput: weight, SelectActivity: activityLevel, SelectGoal: goal } = params;
+  const {
+    SelectGender: gender,
+    ageInput: age,
+    heightInput: height,
+    weightInput: weight,
+    SelectActivity: activityLevel,
+    SelectGoal: goal,
+  } = params;
 
   let calories = [];
-
   try {
     if (params) {
       calories = await fetchData(
@@ -104,18 +115,31 @@ const getNeededCalories = async (params) => {
       );
     }
 
-    if (!calories) return [];
-    const bmrCalories = calories?.data?.BMR;
-    const goalResults = goal === 'maintain' ? calories?.data?.goals[`${goal} weight`] : calories?.data?.goals[goal]?.calory;
+    if (!Object.entries(calories).length)
+      throw new Error('No calories found :(');
 
-    return [bmrCalories, goalResults]
+    const bmrCalories = calories?.data?.BMR;
+    const goalResults =
+      goal === 'maintain'
+        ? calories?.data?.goals[`${goal} weight`]
+        : calories?.data?.goals[goal]?.calory;
+
+    return [bmrCalories, goalResults];
   } catch (error) {
-    throw new Error(error.message)
+    console.error(error);
   }
 };
 
 const getMacros = async (params) => {
-  const { SelectGender: gender, ageInput: age, heightInput: height, weightInput: weight, SelectActivity: activityLevel, SelectGoal: goal, SelectDiet: diet } = params;
+  const {
+    SelectGender: gender,
+    ageInput: age,
+    heightInput: height,
+    weightInput: weight,
+    SelectActivity: activityLevel,
+    SelectGoal: goal,
+    SelectDiet: diet,
+  } = params;
 
   let adaptedGoal;
   // Fix bad naming between different endpoints of the API
@@ -139,14 +163,16 @@ const getMacros = async (params) => {
       adaptedGoal = 'extremegain';
       break;
     default:
-      adaptedGoal = 'maintain'
+      adaptedGoal = 'maintain';
   }
-
   try {
-    const fetchedMacros = await fetchData(`https://fitness-calculator.p.rapidapi.com/macrocalculator?age=${age}&gender=${gender}&height=${height}&weight=${weight}&activitylevel=${activityLevel}&goal=${adaptedGoal}`, fitnessOptions);
+    const fetchedMacros = await fetchData(
+      `https://fitness-calculator.p.rapidapi.com/macrocalculator?age=${age}&gender=${gender}&height=${height}&weight=${weight}&activitylevel=${activityLevel}&goal=${adaptedGoal}`,
+      fitnessOptions
+    );
 
-    if (!fetchedMacros) return {};
-    
+    if (!Object.entries(fetchedMacros).length)
+      throw new Error('No macros found');
 
     // match different macro name for comming from a different APIs
     const macrosArr = Object.entries(fetchedMacros.data?.[diet]);
@@ -154,11 +180,10 @@ const getMacros = async (params) => {
     const finalMacros = Object.fromEntries(macrosArr);
 
     return finalMacros;
-
   } catch (error) {
-    throw new Error(error.message)
+    console.error(error);
   }
-}
+};
 
 export {
   fetchData,

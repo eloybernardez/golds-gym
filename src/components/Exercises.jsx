@@ -23,13 +23,18 @@ function Exercises({ exercises, setExercises, chosenBodyPart }) {
   useEffect(() => {
     const chosenMuscle = chosenBodyPart.name?.toLowerCase();
     const fetchExercisesData = async (muscle) => {
-      const fetchedExercises = await fetchExercises();
+      try {
+        const fetchedExercises = await fetchExercises();
+        if (!fetchedExercises?.length) return;
 
-      const filteredByMuscle = fetchedExercises.filter(
-        ({ category }) =>
-          category?.name && category.name.toLowerCase() === muscle
-      );
-      setExercises(filteredByMuscle);
+        const filteredByMuscle = fetchedExercises.filter(
+          ({ category }) =>
+            category?.name && category.name.toLowerCase() === muscle
+        );
+        setExercises(filteredByMuscle);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchExercisesData(chosenMuscle);
   }, [chosenBodyPart]);
@@ -53,12 +58,18 @@ function Exercises({ exercises, setExercises, chosenBodyPart }) {
         flexWrap='wrap'
         justifyContent='center'
       >
-        {currentExercises.map((exercise) => (
-          <ExerciseCard
-            key={exercise.id}
-            exercise={exercise}
-          />
-        ))}
+        {currentExercises.length ? (
+          currentExercises.map((exercise) => (
+            <ExerciseCard
+              key={exercise.id}
+              exercise={exercise}
+            />
+          ))
+        ) : (
+          <Stack alignItems='center'>
+            <Typography variant='h5' color='#ff2625'>No exercises found 🏃‍♂️. Maybe trying another muscular group?</Typography>
+          </Stack>
+        )}
       </Stack>
       <Stack
         mt='100px'
