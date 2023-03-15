@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 class Input {
   constructor(name, rules, placeholder, errorMsg) {
     this.name = name;

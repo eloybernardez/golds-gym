@@ -23,7 +23,7 @@ function FormInput({ input, control }) {
             value={value}
             onBlur={onBlur}
             onChange={(e) => onChange(Number(e.target.value))}
-            placeholder={input.placeholder}
+            placeholder={!value ? input.placeholder : `${value}`}
             label={`${input.name.slice(0, 1).toUpperCase()}${input.name.slice(
               1
             )}`}
