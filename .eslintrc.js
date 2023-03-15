@@ -23,5 +23,6 @@ module.exports = {
     indent: 0,
     'no-confusing-arrow': 0,
     'consistent-return': 0,
+    'max-classes-per-file': 0,
   },
 };
